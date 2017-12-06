@@ -8,22 +8,24 @@ public class Activity {
     private int _id;
     private String date;
     private String activity;
-    private Boolean isTheBest;
-    private Integer distance;
-    private Integer duration;
+    private int step;
+    private int distance;
+    private int duration;
+    private int calories;
     private String GPX;
 
     //empty constructor
     public Activity(){}
 
     //full pledged constructor
-    public Activity(int id, String date, String activity, Boolean isTheBest, int distance, int duration, String GPX){
+    public Activity(int id, String date, String activity,int step, int distance, int duration,int calories, String GPX){
         this._id = id;
         this.date = date;
         this.activity = activity;
-        this.isTheBest = isTheBest;
+        this.step = step;
         this.distance = distance;
         this.duration = duration;
+        this.calories = calories;
         this.GPX = GPX;
     }
 
@@ -57,16 +59,6 @@ public class Activity {
         this.activity = activity;
     }
 
-    //return the boolean, if its the best
-    public Boolean getTheBest() {
-        return isTheBest;
-    }
-
-    //set the boolean, if its the best
-    public void setTheBest(Boolean theBest) {
-        isTheBest = theBest;
-    }
-
     //return the distance
     public Integer getDistance() {
         return distance;
@@ -95,5 +87,25 @@ public class Activity {
     //set the gpx
     public void setGPX(String GPX) {
         this.GPX = GPX;
+    }
+
+    //return the steps
+    public int getStep() {
+        return step;
+    }
+
+    //set the steps
+    public void setStep(int step) {
+        this.step = step;
+    }
+
+    //return the calory
+    public int getCalories() {
+        return calories;
+    }
+
+    //set the calories
+    public void setCalories(int calories) {
+        this.calories = calories;
     }
 }
