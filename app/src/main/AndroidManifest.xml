@@ -11,19 +11,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activities android:name=".MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activities>
+        </activity>
+        <activity android:name=".track_activity" />
 
         <provider
             android:name=".non_activity.MyContentProvider"
             android:authorities="mdpcw2.mytracker.non_activity.MyContentProvider"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
+
+        <activity android:name=".setGoal_activity" />
+        <activity android:name=".done_activity" />
+        <activity android:name=".history_activity" />
+        <activity android:name=".detail_activity"></activity>
     </application>
 
 </manifest>
