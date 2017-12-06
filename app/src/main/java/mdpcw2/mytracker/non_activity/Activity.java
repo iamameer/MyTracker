@@ -1,5 +1,7 @@
 /*
  * Activity.java : Basic abstract class to create Activity as an object
+ *
+ * Methods       : setter() and getter()
  */
 
 package mdpcw2.mytracker.non_activity;
