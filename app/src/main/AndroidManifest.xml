@@ -29,7 +29,7 @@
         <activity android:name=".setGoal_activity" />
         <activity android:name=".done_activity" />
         <activity android:name=".history_activity" />
-        <activity android:name=".detail_activity"></activity>
+        <activity android:name=".detail_activity"/>
     </application>
 
 </manifest>
