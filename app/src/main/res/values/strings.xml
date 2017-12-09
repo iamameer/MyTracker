@@ -7,4 +7,9 @@
     <string name="steps">Steps</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
+
+    <string name="setGoal">Set Goal:</string>
+    <string name="blank"/>
+    <string name="empty">0</string>
+    <string name="set">Set</string>
 </resources>
