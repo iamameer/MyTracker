@@ -11,4 +11,8 @@
     <string name="setGoal">Set Goal:</string>
     <string name="empty">0</string>
     <string name="set">Set</string>
+
+    <string name="daily">DAILY RUN</string>
+    <string name="maxtest">99999 [90%] (Best: 99999)</string>
+    <string name="back">Main Menu</string>
 </resources>
