@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MyTracker</string>
+    <string name="date">Date Unspecified</string>
+    <string name="calory">Calory</string>
+    <string name="timer">Timer</string>
+    <string name="distance">Distance</string>
+    <string name="steps">Steps</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
 </resources>

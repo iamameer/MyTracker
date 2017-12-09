@@ -9,7 +9,7 @@
     tools:layout_editor_absoluteY="81dp">
 
     <ImageView
-        android:id="@+id/imgStart"
+        android:id="@+id/imgMainStart"
         android:layout_width="150dp"
         android:layout_height="80dp"
         android:layout_marginLeft="116dp"
@@ -19,12 +19,12 @@
         app:srcCompat="@drawable/start" />
 
     <ImageView
-        android:id="@+id/imgHistory"
+        android:id="@+id/imgMainHistory"
         android:layout_width="147dp"
         android:layout_height="89dp"
         android:layout_marginRight="116dp"
         android:layout_marginTop="48dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgStart"
+        app:layout_constraintTop_toBottomOf="@+id/imgMainStart"
         app:srcCompat="@drawable/history" />
 </android.support.constraint.ConstraintLayout>
