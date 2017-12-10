@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MyTracker</string>
+
     <string name="date">Date Unspecified</string>
     <string name="calory">Calory</string>
     <string name="timer">Timer</string>
@@ -15,4 +16,6 @@
     <string name="daily">DAILY RUN</string>
     <string name="maxtest">99999 [90%] (Best: 99999)</string>
     <string name="back">Main Menu</string>
+
+    <string name="tap">Tap to view details</string>
 </resources>

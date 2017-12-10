@@ -5,4 +5,5 @@
     <color name="colorAccent">#612177</color>
 
     <color name="colorBase">#451360</color>
+    <string name="colorBox">#725284</string>
 </resources>
