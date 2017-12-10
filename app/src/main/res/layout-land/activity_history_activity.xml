@@ -21,7 +21,7 @@
         android:layout_width="546dp"
         android:layout_height="276dp"
         android:layout_marginTop="28dp"
-        android:background="@string/colorBox"
+        android:background="@color/colorBox"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
