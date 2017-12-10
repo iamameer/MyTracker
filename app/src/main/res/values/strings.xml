@@ -18,4 +18,6 @@
     <string name="back">Main Menu</string>
 
     <string name="tap">Tap to view details</string>
+
+    <string name="test">99999 Steps</string>
 </resources>
