@@ -1,21 +1,32 @@
 package mdpcw2.mytracker;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 public class track_activity extends AppCompatActivity {
 
     //Global Variables
+    private Button btnTrackStartStop;
 
     //Init
     private void init(){
-
+        btnTrackStartStop = findViewById(R.id.btnTrackStartStop);
     }
 
     //Setting up events
     private void setEvents(){
-
+        btnTrackStartStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO if start/stop bla2
+                Intent intent = new Intent(getApplicationContext(),done_activity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //Activity Lifecycle onCreate()

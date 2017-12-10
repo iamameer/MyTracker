@@ -1,21 +1,32 @@
 package mdpcw2.mytracker;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 public class history_activity extends AppCompatActivity {
 
     //Global Variables
+    private Button btnHistoryBack;
 
     //Init
     private void init(){
-
+        btnHistoryBack = findViewById(R.id.btnHistoryBack);
     }
 
     //Setting up events
     private void setEvents(){
-
+        btnHistoryBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO finish
+                Intent intent = new Intent(getApplicationContext(),detail_activity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //Activity Lifecycle onCreate()
