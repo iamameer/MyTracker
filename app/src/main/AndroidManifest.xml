@@ -35,7 +35,12 @@
         <service
             android:name=".non_activity.TrackerService"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
+
+        <receiver
+            android:name=".TrackerReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>

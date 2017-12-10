@@ -1,7 +1,10 @@
 package mdpcw2.mytracker;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.provider.ContactsContract;
@@ -13,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import mdpcw2.mytracker.non_activity.TrackerService;
 
@@ -22,6 +26,9 @@ public class track_activity extends AppCompatActivity {
     private static final int PERM_ID = 99;
     private Button btnTrackStartStop;
     private ProgressBar progressBar;
+
+    //private TrackerReceiver trackerReceiver;
+    private BroadcastReceiver broadcastReceiver;
 
     //Init
     private void init(){
@@ -121,6 +128,16 @@ public class track_activity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         Log.d("MyTracker","=TrackActivity onResume()");
+
+        if(broadcastReceiver == null){
+            BroadcastReceiver broadcastReceiver = new BroadcastReceiver(){
+                @Override
+                public void onReceive(Context context, Intent intent){
+                    Toast.makeText(getApplicationContext(),intent.getExtras().get("coordinates").toString(),Toast.LENGTH_SHORT).show();
+                }
+            };
+        }
+        registerReceiver(broadcastReceiver,new IntentFilter("location_update"));
     }
 
     //Activity Lifecycle onPause()
@@ -142,6 +159,9 @@ public class track_activity extends AppCompatActivity {
     protected void onDestroy(){
         super.onDestroy();
         Log.d("MyTracker","=TrackActivity onDestroy()");
+        if (broadcastReceiver != null){
+            unregisterReceiver(broadcastReceiver);
+        }
     }
 
     //Method overriding - during listing and permission request

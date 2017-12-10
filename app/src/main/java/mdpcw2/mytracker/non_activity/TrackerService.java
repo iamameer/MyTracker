@@ -37,7 +37,9 @@ public class TrackerService extends Service {
         listener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-
+                Intent intent = new Intent("location_update");
+                intent.putExtra("coordinates",location.getLongitude()+" "+location.getLatitude());
+                sendBroadcast(intent);
             }
 
             @Override
