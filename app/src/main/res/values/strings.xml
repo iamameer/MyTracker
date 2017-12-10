@@ -6,8 +6,8 @@
     <string name="timer">Timer</string>
     <string name="distance">Distance</string>
     <string name="steps">Steps</string>
-    <string name="start">Start</string>
-    <string name="stop">Stop</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
 
     <string name="setGoal">Set Goal:</string>
     <string name="empty">0</string>

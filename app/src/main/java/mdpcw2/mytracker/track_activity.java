@@ -6,15 +6,23 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+
+import mdpcw2.mytracker.non_activity.TrackerService;
 
 public class track_activity extends AppCompatActivity {
 
     //Global Variables
     private Button btnTrackStartStop;
+    private ProgressBar progressBar;
 
     //Init
     private void init(){
         btnTrackStartStop = findViewById(R.id.btnTrackStartStop);
+        btnTrackStartStop.setText(R.string.start);
+
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     //Setting up events
@@ -22,11 +30,45 @@ public class track_activity extends AppCompatActivity {
         btnTrackStartStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO if start/stop bla2
-                Intent intent = new Intent(getApplicationContext(),done_activity.class);
-                startActivity(intent);
+                if (btnTrackStartStop.getText().toString().equals("START")){
+                    progressBar.setVisibility(View.VISIBLE);
+                    btnTrackStartStop.setText(R.string.stop);
+                    startMyService();
+                }else if(btnTrackStartStop.getText().toString().equals("STOP")){
+                    progressBar.setVisibility(View.INVISIBLE);
+                    btnTrackStartStop.setText(R.string.start);
+                    stopMyService();
+                    Intent intent = new Intent(getApplicationContext(),done_activity.class);
+                    startActivity(intent);
+                }
             }
         });
+    }
+
+    //Method to start service
+    private void startMyService(){
+        /*Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(), TrackerService.class);
+                startService(intent);
+            }
+        };
+        runnable.run();*/
+        //TODO: check if thread in here, or in service
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(), TrackerService.class);
+                startService(intent);
+            }
+        });
+    }
+
+    //Method to stop service
+    private void stopMyService(){
+        Intent intent = new Intent(getApplicationContext(), TrackerService.class);
+        stopService(intent);
     }
 
     //Activity Lifecycle onCreate()

@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    //Activity Lifecycle onCreate()
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

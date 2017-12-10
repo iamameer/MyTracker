@@ -3,7 +3,7 @@
     package="mdpcw2.mytracker">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -30,7 +30,12 @@
         <activity android:name=".setGoal_activity" />
         <activity android:name=".done_activity" />
         <activity android:name=".history_activity" />
-        <activity android:name=".detail_activity"/>
+        <activity android:name=".detail_activity" />
+
+        <service
+            android:name=".non_activity.TrackerService"
+            android:enabled="true"
+            android:exported="false"/>
     </application>
 
 </manifest>
