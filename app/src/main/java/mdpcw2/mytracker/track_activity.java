@@ -1,6 +1,12 @@
 package mdpcw2.mytracker;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Handler;
+import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +19,7 @@ import mdpcw2.mytracker.non_activity.TrackerService;
 public class track_activity extends AppCompatActivity {
 
     //Global Variables
+    private static final int PERM_ID = 99;
     private Button btnTrackStartStop;
     private ProgressBar progressBar;
 
@@ -20,9 +27,12 @@ public class track_activity extends AppCompatActivity {
     private void init(){
         btnTrackStartStop = findViewById(R.id.btnTrackStartStop);
         btnTrackStartStop.setText(R.string.start);
+        btnTrackStartStop.setEnabled(false);
 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+
+        check_permission();
     }
 
     //Setting up events
@@ -45,24 +55,34 @@ public class track_activity extends AppCompatActivity {
         });
     }
 
+    //Method to check permission
+    private void check_permission(){
+        if (ContextCompat.checkSelfPermission(track_activity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(track_activity.this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(track_activity.this,
+                    Manifest.permission.ACCESS_FINE_LOCATION) &&
+                ActivityCompat.shouldShowRequestPermissionRationale(track_activity.this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION)){
+                ActivityCompat.requestPermissions(track_activity.this,
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},PERM_ID);
+                ActivityCompat.requestPermissions(track_activity.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},PERM_ID);
+            }else{
+                ActivityCompat.requestPermissions(track_activity.this,
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},PERM_ID);
+                ActivityCompat.requestPermissions(track_activity.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},PERM_ID);
+            }
+        }else{btnTrackStartStop.setEnabled(true);}
+    }
+
     //Method to start service
     private void startMyService(){
-        /*Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(getApplicationContext(), TrackerService.class);
-                startService(intent);
-            }
-        };
-        runnable.run();*/
         //TODO: check if thread in here, or in service
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(getApplicationContext(), TrackerService.class);
-                startService(intent);
-            }
-        });
+        Intent intent = new Intent(getApplicationContext(), TrackerService.class);
+        startService(intent);
     }
 
     //Method to stop service
@@ -122,5 +142,18 @@ public class track_activity extends AppCompatActivity {
     protected void onDestroy(){
         super.onDestroy();
         Log.d("MyTracker","=TrackActivity onDestroy()");
+    }
+
+    //Method overriding - during listing and permission request
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,int[] grantResults){
+        if(requestCode == PERM_ID){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                btnTrackStartStop.setEnabled(true);
+            }else{
+                check_permission();
+            }
+        }
     }
 }

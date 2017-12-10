@@ -1,8 +1,15 @@
 package mdpcw2.mytracker.non_activity;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -11,6 +18,9 @@ public class TrackerService extends Service {
     //Global variables
     private static final int ID = 100; //Permission Request ID
     NotificationCompat.Builder notification; //Create a notification object
+
+    private LocationListener listener;
+    private LocationManager locationManager;
 
     public TrackerService() {
     }
@@ -21,7 +31,35 @@ public class TrackerService extends Service {
 
     private void startNoti(){}
 
-    private void startTracker(){}
+    //https://www.youtube.com/watch?v=lvcGh2ZgHeA
+    @SuppressLint("MissingPermission")
+    private void startTracker(){
+        listener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+
+            }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        };
+        locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,500,0,listener);
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
