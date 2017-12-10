@@ -13,13 +13,13 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imgMainStart, imgMainHistory;
 
     //Init
-    public void init(){
+    private void init(){
         imgMainStart = findViewById(R.id.imgMainStart);
         imgMainHistory = findViewById(R.id.imgMainHistory);
     }
 
     //setting up methods
-    public void setEvents(){
+    private void setEvents(){
         imgMainStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         init();
         setEvents();
+        Log.d("MyTracker","=MainActivity onCreate()");
     }
 
     //Activity Lifecycle onStart()
