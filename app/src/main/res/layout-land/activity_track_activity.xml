@@ -35,9 +35,9 @@
         android:id="@+id/imgTrackTimer"
         android:layout_width="55dp"
         android:layout_height="52dp"
-        android:layout_marginRight="400dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="112dp"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgTrackCalory"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/timer" />
 
@@ -45,9 +45,9 @@
         android:id="@+id/imgTrackDistance"
         android:layout_width="47dp"
         android:layout_height="47dp"
-        android:layout_marginEnd="320dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="112dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgTrackTimer"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/location" />
 
@@ -69,28 +69,28 @@
         android:id="@+id/txtTrackTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="400dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="168dp"
         android:fontFamily="serif"
         android:gravity="center"
         android:text="@string/timer"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtTrackCalory"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtTrackDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="304dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="168dp"
         android:fontFamily="serif"
         android:gravity="center"
         android:text="@string/distance"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtTrackTimer"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
@@ -99,34 +99,42 @@
         android:layout_width="286dp"
         android:layout_height="269dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginStart="288dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/txtTrackSteps"
         android:layout_width="184dp"
         android:layout_height="105dp"
-        android:layout_marginLeft="340dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginBottom="124dp"
+        android:layout_marginEnd="64dp"
         android:fontFamily="serif"
         android:gravity="center"
         android:text="@string/steps"
         android:textColor="@android:color/white"
         android:textSize="65sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgTrackSteps"
+        android:layout_width="41dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="96dp"
+        android:layout_marginEnd="144dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/step" />
 
     <Button
         android:id="@+id/btnTrackStartStop"
         android:layout_width="105dp"
         android:layout_height="59dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="36dp"
+        android:layout_marginRight="104dp"
         android:text="@string/start"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.782"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
