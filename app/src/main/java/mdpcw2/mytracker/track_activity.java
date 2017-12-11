@@ -29,7 +29,6 @@ public class track_activity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private TrackerReceiver trackerReceiver;
-    //private BroadcastReceiver broadcastReceiver;
 
     //Init
     private void init(){
@@ -129,17 +128,6 @@ public class track_activity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         Log.d("MyTracker","=TrackActivity onResume()");
-
-        /*if(broadcastReceiver == null){
-            BroadcastReceiver broadcastReceiver = new BroadcastReceiver(){
-                @Override
-                public void onReceive(Context context, Intent intent){
-                    Toast.makeText(getApplicationContext(),intent.getExtras().get("coordinates").toString(),Toast.LENGTH_SHORT).show();
-                }
-            };
-        }else{
-            broadcastReceiver = new TrackerReceiver();
-        }*/
         registerReceiver(trackerReceiver,new IntentFilter("location_update"));
     }
 

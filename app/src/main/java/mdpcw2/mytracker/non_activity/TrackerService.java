@@ -42,6 +42,7 @@ public class TrackerService extends Service {
                 Log.d("MyTracker","@@MyTrackerService onLocationChanged");
                 Intent intent = new Intent("location_update");
                 intent.putExtra("coordinates",location.getLongitude()+"//"+location.getLatitude());
+                //TODO: walk or run
                 sendBroadcast(intent);
                 Toast.makeText(getApplicationContext(),"coordinates: "+location.getLongitude()+"//"+location.getLatitude(),Toast.LENGTH_SHORT).show();
             }
