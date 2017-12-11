@@ -23,11 +23,14 @@ public class TrackerService extends Service {
     private LocationListener listener;
     private LocationManager locationManager;
 
+    private double initLong,initLat, newLong, newLat;
+    private boolean isChanged;
+
     public TrackerService() {
     }
 
     private void init(){
-
+        isChanged = false;
     }
 
     private void startNoti(){}
@@ -40,11 +43,23 @@ public class TrackerService extends Service {
             @Override
             public void onLocationChanged(Location location) {
                 Log.d("MyTracker","@@MyTrackerService onLocationChanged");
+
+                if(isChanged){
+                    initLong = newLong;
+                    initLat = newLat;
+                }
+                newLong = location.getLongitude();
+                newLat = location.getLatitude();
+
+                Log.d("MyTracker","$$Distance: "+distance(initLong,initLat,newLong,newLat));
+
                 Intent intent = new Intent("location_update");
                 intent.putExtra("coordinates",location.getLongitude()+"//"+location.getLatitude());
+                intent.putExtra("long",location.getLongitude());
+                intent.putExtra("lat",location.getLatitude());
                 //TODO: walk or run
                 sendBroadcast(intent);
-                Toast.makeText(getApplicationContext(),"coordinates: "+location.getLongitude()+"//"+location.getLatitude(),Toast.LENGTH_SHORT).show();
+                isChanged = true;
             }
 
             @Override
@@ -69,7 +84,26 @@ public class TrackerService extends Service {
         locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         Log.d("MyTracker","@@MyTrackerService requestLocationUpdates");
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,500,0,listener);
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        initLong = location.getLongitude();
+        initLat = location.getLatitude();
+        Log.d("MyTracker","**initLong: "+initLong+" //initLat: "+initLat);
     }
+
+    //Method to calculate distance
+    //https://stackoverflow.com/questions/8410787/android-how-to-get-estimated-drive-time-from-one-place-to-another/8410867#8410867
+    private float distance(double long1,double lat1,double long2, double lat2){
+        Location location1 = new Location("");
+        location1.setLatitude(lat1);
+        location1.setLongitude(long1);
+
+        Location location2 = new Location("");
+        location2.setLatitude(lat2);
+        location2.setLongitude(long2);
+
+        return (location1.distanceTo(location2))/1000;
+    }
+
 
     @Override
     public IBinder onBind(Intent intent) {

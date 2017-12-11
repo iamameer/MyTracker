@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.os.Handler;
-import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +16,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import mdpcw2.mytracker.non_activity.TrackerReceiver;
 import mdpcw2.mytracker.non_activity.TrackerService;
 
 public class track_activity extends AppCompatActivity {
@@ -27,8 +24,9 @@ public class track_activity extends AppCompatActivity {
     private static final int PERM_ID = 99;
     private Button btnTrackStartStop;
     private ProgressBar progressBar;
+    private String longitude,latitude;
 
-    private TrackerReceiver trackerReceiver;
+    private BroadcastReceiver trackerReceiver;
 
     //Init
     private void init(){
@@ -98,6 +96,11 @@ public class track_activity extends AppCompatActivity {
         stopService(intent);
     }
 
+    //Method to update the stats
+    private void update(){
+        Log.d("MyTracker","***Lo: "+longitude+"// La: "+latitude);
+    }
+
     //Activity Lifecycle onCreate()
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +110,21 @@ public class track_activity extends AppCompatActivity {
         init();
         setEvents();
         Log.d("MyTracker","=TrackActivity onCreate()");
+
+        trackerReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                try{
+                    longitude = intent.getExtras().get("long").toString();
+                    latitude = intent.getExtras().get("lat").toString();
+                    update();
+                    Toast.makeText(context,intent.getExtras().get("coordinates").toString(),Toast.LENGTH_SHORT).show();
+                }catch (Exception e){
+                    Log.d("MyTracker","***Fail to parse INT from STRING");
+                    Toast.makeText(getApplicationContext(),"Fail to parse INT from STRING",Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
     }
 
     //Activity Lifecycle onStart()
@@ -129,6 +147,11 @@ public class track_activity extends AppCompatActivity {
         super.onResume();
         Log.d("MyTracker","=TrackActivity onResume()");
         registerReceiver(trackerReceiver,new IntentFilter("location_update"));
+        //registerReceiver(trackerReceiver,new IntentFilter("bCastLongLat"));
+        /*Intent intent = getIntent();
+        Log.d("MyTracker","=TrackActivity getIntent: " +
+                "Long="+intent.getStringExtra("long")+
+                "// Lat="+intent.getStringExtra("lat"));*/
     }
 
     //Activity Lifecycle onPause()
