@@ -3,19 +3,45 @@ package mdpcw2.mytracker;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class done_activity extends AppCompatActivity {
 
     //Global Variables
+    private TextView txtDoneSteps, txtDoneCalory,txtDoneTimer,txtDoneDistance;
+    private Button btnDoneMainMenu;
+
+    private String steps,calory,timer,distance;
 
     //Init
     private void init(){
+        txtDoneSteps = findViewById(R.id.txtDoneSteps);
+        txtDoneCalory = findViewById(R.id.txtDoneCalory);
+        txtDoneTimer = findViewById(R.id.txtDoneTimer);
+        txtDoneDistance = findViewById(R.id.txtDoneDistance);
 
+        steps = getIntent().getExtras().get("steps").toString()+" [90%] (Best: 9999)";
+        calory = getIntent().getExtras().get("calory").toString()+" [90%] (Best: 9999)";
+        distance = getIntent().getExtras().get("distance").toString()+" [90%] (Best: 9999)";
+
+        txtDoneSteps.setText(steps);
+        txtDoneCalory.setText(calory);
+        //txtDoneTimer
+        txtDoneDistance.setText(distance);
+
+        btnDoneMainMenu = findViewById(R.id.btnDoneMainMenu);
     }
 
     //Setting up events
     private void setEvents(){
-
+        btnDoneMainMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     //Activity Lifecycle onCreate()

@@ -76,7 +76,12 @@ public class track_activity extends AppCompatActivity {
                     btnTrackStartStop.setText(R.string.start);
                     stopMyService();
                     Intent intent = new Intent(getApplicationContext(),done_activity.class);
+                    intent.putExtra("steps",steps);
+                    intent.putExtra("distance",distance);
+                    //intent.putExtra("timer")
+                    intent.putExtra("calory",calory);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -122,7 +127,7 @@ public class track_activity extends AppCompatActivity {
     private void update(){
         Log.d("MyTracker","***Lo: "+longitude+"// La: "+latitude);
         distance = distance + " m";
-        calory = calory + "kCal";
+        calory = calory + " kCal";
         txtTrackDistance.setText(distance);
         txtTrackSteps.setText(steps);
         txtTrackCalory.setText(calory);
