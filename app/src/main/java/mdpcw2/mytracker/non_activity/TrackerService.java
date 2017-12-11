@@ -27,6 +27,7 @@ public class TrackerService extends Service {
     private boolean isChanged;
 
     private float distance;
+    private double steps;// calory;
 
     public TrackerService() {
     }
@@ -53,14 +54,18 @@ public class TrackerService extends Service {
                 newLong = location.getLongitude();
                 newLat = location.getLatitude();
 
-                Log.d("MyTracker","$$Distance: "+distance(initLong,initLat,newLong,newLat));
                 distance = distance + distance(initLong,initLat,newLong,newLat);
+                Log.d("MyTracker","$$Distance: "+distance);
+
+                steps = steps + steps(distance);
+                Log.d("MyTracker","$$Steps: "+steps);
 
                 Intent intent = new Intent("location_update");
                 intent.putExtra("coordinates",location.getLongitude()+"//"+location.getLatitude());
                 intent.putExtra("long",location.getLongitude());
                 intent.putExtra("lat",location.getLatitude());
                 intent.putExtra("distance",Math.round(distance));
+                intent.putExtra("steps",Math.round(steps));
                 //TODO: walk or run
                 sendBroadcast(intent);
                 isChanged = true;
@@ -105,8 +110,15 @@ public class TrackerService extends Service {
         location2.setLatitude(lat2);
         location2.setLongitude(long2);
 
-        return (location1.distanceTo(location2))/1000;
+        return (location1.distanceTo(location2));
     }
+
+    //Method to calculate steps
+    //http://www.kylesconverter.com/length/steps-to-meters
+    private double steps(float distance){
+        return distance * 1.31;
+    }
+
 
 
     @Override

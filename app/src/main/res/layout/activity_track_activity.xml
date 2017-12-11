@@ -35,9 +35,10 @@
         android:id="@+id/imgTrackTimer"
         android:layout_width="55dp"
         android:layout_height="52dp"
-        android:layout_marginRight="164dp"
-        android:layout_marginTop="109dp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="112dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgTrackCalory"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/timer" />
 
@@ -45,9 +46,9 @@
         android:id="@+id/imgTrackDistance"
         android:layout_width="47dp"
         android:layout_height="47dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginTop="112dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="116dp"
+        app:layout_constraintStart_toEndOf="@+id/imgTrackTimer"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/location" />
 
@@ -69,6 +70,8 @@
         android:id="@+id/txtTrackTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="164dp"
+        android:layout_marginStart="56dp"
         android:layout_marginTop="168dp"
         android:fontFamily="serif"
         android:gravity="center"
@@ -76,25 +79,22 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtTrackCalory"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtTrackDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="232dp"
-        android:layout_marginTop="168dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="serif"
         android:gravity="center"
         android:text="@string/distance"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/txtTrackTimer"
+        app:layout_constraintTop_toBottomOf="@+id/imgTrackDistance" />
 
     <ProgressBar
         android:id="@+id/progressBar"

@@ -27,10 +27,10 @@ public class track_activity extends AppCompatActivity {
     private static final int PERM_ID = 99;
     private Button btnTrackStartStop;
     private ProgressBar progressBar;
-    private TextView txtTrackDistance;
+    private TextView txtTrackDistance,txtTrackSteps;
 
     private String longitude,latitude;
-    private String distance;
+    private String distance,steps;
 
     private BroadcastReceiver trackerReceiver;
 
@@ -44,6 +44,7 @@ public class track_activity extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
 
         txtTrackDistance = findViewById(R.id.txtTrackDistance);
+        txtTrackSteps = findViewById(R.id.txtTrackSteps);
 
         check_permission();
     }
@@ -107,7 +108,9 @@ public class track_activity extends AppCompatActivity {
     //Method to update the stats
     private void update(){
         Log.d("MyTracker","***Lo: "+longitude+"// La: "+latitude);
+        distance = distance + " m";
         txtTrackDistance.setText(distance);
+        txtTrackSteps.setText(steps);
     }
 
     //Activity Lifecycle onCreate()
@@ -127,6 +130,7 @@ public class track_activity extends AppCompatActivity {
                     longitude = intent.getExtras().get("long").toString();
                     latitude = intent.getExtras().get("lat").toString();
                     distance = intent.getExtras().get("distance").toString();
+                    steps = intent.getExtras().get("steps").toString();
                     update();
                     Toast.makeText(context,intent.getExtras().get("coordinates").toString(),Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
