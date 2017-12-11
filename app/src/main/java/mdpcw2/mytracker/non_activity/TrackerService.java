@@ -26,6 +26,8 @@ public class TrackerService extends Service {
     private double initLong,initLat, newLong, newLat;
     private boolean isChanged;
 
+    private float distance;
+
     public TrackerService() {
     }
 
@@ -52,11 +54,13 @@ public class TrackerService extends Service {
                 newLat = location.getLatitude();
 
                 Log.d("MyTracker","$$Distance: "+distance(initLong,initLat,newLong,newLat));
+                distance = distance + distance(initLong,initLat,newLong,newLat);
 
                 Intent intent = new Intent("location_update");
                 intent.putExtra("coordinates",location.getLongitude()+"//"+location.getLatitude());
                 intent.putExtra("long",location.getLongitude());
                 intent.putExtra("lat",location.getLatitude());
+                intent.putExtra("distance",Math.round(distance));
                 //TODO: walk or run
                 sendBroadcast(intent);
                 isChanged = true;

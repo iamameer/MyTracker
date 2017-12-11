@@ -14,7 +14,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import mdpcw2.mytracker.non_activity.TrackerService;
 
@@ -24,7 +27,10 @@ public class track_activity extends AppCompatActivity {
     private static final int PERM_ID = 99;
     private Button btnTrackStartStop;
     private ProgressBar progressBar;
+    private TextView txtTrackDistance;
+
     private String longitude,latitude;
+    private String distance;
 
     private BroadcastReceiver trackerReceiver;
 
@@ -36,6 +42,8 @@ public class track_activity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+
+        txtTrackDistance = findViewById(R.id.txtTrackDistance);
 
         check_permission();
     }
@@ -99,6 +107,7 @@ public class track_activity extends AppCompatActivity {
     //Method to update the stats
     private void update(){
         Log.d("MyTracker","***Lo: "+longitude+"// La: "+latitude);
+        txtTrackDistance.setText(distance);
     }
 
     //Activity Lifecycle onCreate()
@@ -117,6 +126,7 @@ public class track_activity extends AppCompatActivity {
                 try{
                     longitude = intent.getExtras().get("long").toString();
                     latitude = intent.getExtras().get("lat").toString();
+                    distance = intent.getExtras().get("distance").toString();
                     update();
                     Toast.makeText(context,intent.getExtras().get("coordinates").toString(),Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
