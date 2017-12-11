@@ -1,4 +1,4 @@
-package mdpcw2.mytracker;
+package mdpcw2.mytracker.non_activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
