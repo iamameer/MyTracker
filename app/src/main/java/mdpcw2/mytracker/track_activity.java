@@ -19,6 +19,11 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import mdpcw2.mytracker.non_activity.TrackerService;
 
 public class track_activity extends AppCompatActivity {
@@ -27,10 +32,10 @@ public class track_activity extends AppCompatActivity {
     private static final int PERM_ID = 99;
     private Button btnTrackStartStop;
     private ProgressBar progressBar;
-    private TextView txtTrackDistance,txtTrackSteps;
+    private TextView txtTrackDistance,txtTrackSteps, txtTrackCalory, txtTrackDate;
 
     private String longitude,latitude;
-    private String distance,steps;
+    private String distance,steps,calory;
 
     private BroadcastReceiver trackerReceiver;
 
@@ -45,6 +50,14 @@ public class track_activity extends AppCompatActivity {
 
         txtTrackDistance = findViewById(R.id.txtTrackDistance);
         txtTrackSteps = findViewById(R.id.txtTrackSteps);
+        txtTrackCalory = findViewById(R.id.txtTrackCalory);
+        txtTrackDate = findViewById(R.id.txtTrackDate);
+
+        //Get date
+        //https://stackoverflow.com/questions/8654990/how-can-i-get-current-date-in-android
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy");
+        txtTrackDate.setText(df.format(c.getTime()));
 
         check_permission();
     }
@@ -109,8 +122,10 @@ public class track_activity extends AppCompatActivity {
     private void update(){
         Log.d("MyTracker","***Lo: "+longitude+"// La: "+latitude);
         distance = distance + " m";
+        calory = calory + "kCal";
         txtTrackDistance.setText(distance);
         txtTrackSteps.setText(steps);
+        txtTrackCalory.setText(calory);
     }
 
     //Activity Lifecycle onCreate()
@@ -131,6 +146,7 @@ public class track_activity extends AppCompatActivity {
                     latitude = intent.getExtras().get("lat").toString();
                     distance = intent.getExtras().get("distance").toString();
                     steps = intent.getExtras().get("steps").toString();
+                    calory = intent.getExtras().get("calory").toString();
                     update();
                     Toast.makeText(context,intent.getExtras().get("coordinates").toString(),Toast.LENGTH_SHORT).show();
                 }catch (Exception e){

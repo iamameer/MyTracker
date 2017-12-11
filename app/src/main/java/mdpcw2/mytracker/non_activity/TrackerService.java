@@ -27,7 +27,7 @@ public class TrackerService extends Service {
     private boolean isChanged;
 
     private float distance;
-    private double steps;// calory;
+    private double steps, calory;
 
     public TrackerService() {
     }
@@ -60,12 +60,16 @@ public class TrackerService extends Service {
                 steps = steps + steps(distance);
                 Log.d("MyTracker","$$Steps: "+steps);
 
+                calory = calory + calory(distance);
+                Log.d("MyTracker","$$Calory: "+calory);
+
                 Intent intent = new Intent("location_update");
                 intent.putExtra("coordinates",location.getLongitude()+"//"+location.getLatitude());
                 intent.putExtra("long",location.getLongitude());
                 intent.putExtra("lat",location.getLatitude());
                 intent.putExtra("distance",Math.round(distance));
                 intent.putExtra("steps",Math.round(steps));
+                intent.putExtra("calory",Math.round(calory));
                 //TODO: walk or run
                 sendBroadcast(intent);
                 isChanged = true;
@@ -119,6 +123,11 @@ public class TrackerService extends Service {
         return distance * 1.31;
     }
 
+    //Method to calculate calories
+    //https://www.runnersworld.com/tools/calories-burned-calculator
+    private double calory(float distance){
+        return distance * 0.104;
+    }
 
 
     @Override
