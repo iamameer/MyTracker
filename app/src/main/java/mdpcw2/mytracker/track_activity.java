@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +26,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
 
 import mdpcw2.mytracker.non_activity.TrackerService;
 
@@ -33,9 +37,11 @@ public class track_activity extends AppCompatActivity {
     private Button btnTrackStartStop;
     private ProgressBar progressBar;
     private TextView txtTrackDistance,txtTrackSteps, txtTrackCalory, txtTrackDate, txtTrackTimer;
+    private Chronometer chronometer;
 
     private String longitude,latitude;
     private String distance,steps,calory;
+    private long timer;
 
     private BroadcastReceiver trackerReceiver;
 
@@ -53,6 +59,8 @@ public class track_activity extends AppCompatActivity {
         txtTrackCalory = findViewById(R.id.txtTrackCalory);
         txtTrackDate = findViewById(R.id.txtTrackDate);
         txtTrackTimer = findViewById(R.id.txtTrackTimer);
+
+        chronometer = findViewById(R.id.chronometer);
 
         //Get date
         //https://stackoverflow.com/questions/8654990/how-can-i-get-current-date-in-android
@@ -76,17 +84,23 @@ public class track_activity extends AppCompatActivity {
                     txtTrackSteps.setText(R.string.empty);
                     btnTrackStartStop.setText(R.string.stop);
                     startMyService();
+                    startTimer();
                 }else if(btnTrackStartStop.getText().toString().equals("STOP")){
                     progressBar.setVisibility(View.INVISIBLE);
                     btnTrackStartStop.setText(R.string.start);
                     stopMyService();
-                    Intent intent = new Intent(getApplicationContext(),done_activity.class);
-                    intent.putExtra("steps",steps);
-                    intent.putExtra("distance",distance);
-                    //intent.putExtra("timer")
-                    intent.putExtra("calory",calory);
-                    startActivity(intent);
-                    finish();
+                    chronometer.stop();
+                    if (distance!=null){
+                        timer = SystemClock.elapsedRealtime() - chronometer.getBase();
+                        Intent intent = new Intent(getApplicationContext(),done_activity.class);
+                        intent.putExtra("steps",steps);
+                        intent.putExtra("distance",distance);
+                        intent.putExtra("timer",timer);
+                        intent.putExtra("calory",calory);
+                        startActivity(intent);
+                        finish();
+                    }
+                    chronometer.setBase(SystemClock.elapsedRealtime());
                 }
             }
         });
@@ -136,6 +150,49 @@ public class track_activity extends AppCompatActivity {
         txtTrackDistance.setText(distance);
         txtTrackSteps.setText(steps);
         txtTrackCalory.setText(calory);
+    }
+
+    //Method to handle the timer
+    private void startTimer(){
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        chronometer.start();
+        /*new CountDownTimer(10000,1000){
+
+            @Override
+            public void onTick(long l) {
+                timer++;
+                txtTrackTimer.setText(getTime(timer));
+            }
+
+            @Override
+            public void onFinish() {
+                startTimer();
+            }
+        }.start();*/
+    }
+
+    //This method convert milliseconds to minute and seconds (int progress)
+    //and return in String value, to be displayed in TextView
+    private String getTime(Integer time){
+        int hour,min,sec;
+        String hourS, minS,secS;
+
+        if (time <60){   //under 1 minute
+            hour = 0;
+            min = 0;
+            sec = time;
+        }else{              //more than 1 minute
+            hour = (time) / 3600;
+            min = (time) / 60;
+            sec = (time) % 60;
+        }
+
+        //adding 0 at the beginning to please the eyes
+        if (hour<0){hourS = "0"+hour;}else{hourS = String.valueOf(hour);}
+        if (min<0){minS = "0"+min;}else{minS = String.valueOf(min);}
+        if (sec <10){secS = "0"+min;}else{secS = String.valueOf(sec);}
+
+        return hourS+":"+minS+":"+secS;
     }
 
     //Activity Lifecycle onCreate()

@@ -24,11 +24,12 @@ public class done_activity extends AppCompatActivity {
 
         steps = getIntent().getExtras().get("steps").toString()+" [90%] \n(Best: 9999 steps)";
         calory = getIntent().getExtras().get("calory").toString()+" [90%] \n(Best: 9999 kCal)";
+        timer = getIntent().getExtras().get("timer").toString()+" [90%] \n(Best: 9999 kCal)";
         distance = getIntent().getExtras().get("distance").toString()+" [90%] \n(Best: 9999 m)";
 
         txtDoneSteps.setText(steps);
         txtDoneCalory.setText(calory);
-        //txtDoneTimer
+        txtDoneTimer.setText(timer);
         txtDoneDistance.setText(distance);
 
         btnDoneMainMenu = findViewById(R.id.btnDoneMainMenu);

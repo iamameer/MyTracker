@@ -10,7 +10,7 @@
     <string name="stop">STOP</string>
 
     <string name="initCalory">0 kCal</string>
-    <string name="initTimer">00h 0m</string>
+    <string name="initTimer">00:00:00</string>
     <string name="initDistance">0 m</string>
 
     <string name="setGoal">Set Goal:</string>
