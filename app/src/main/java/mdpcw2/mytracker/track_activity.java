@@ -41,7 +41,6 @@ public class track_activity extends AppCompatActivity {
 
     private String longitude,latitude;
     private String distance,steps,calory;
-    private long timer;
 
     private BroadcastReceiver trackerReceiver;
 
@@ -91,17 +90,23 @@ public class track_activity extends AppCompatActivity {
                     stopMyService();
                     chronometer.stop();
                     if (distance!=null){
-                        timer = SystemClock.elapsedRealtime() - chronometer.getBase();
                         Intent intent = new Intent(getApplicationContext(),done_activity.class);
                         intent.putExtra("steps",steps);
                         intent.putExtra("distance",distance);
-                        intent.putExtra("timer",timer);
+                        intent.putExtra("timer",txtTrackTimer.getText().toString());
                         intent.putExtra("calory",calory);
                         startActivity(intent);
                         finish();
                     }
                     chronometer.setBase(SystemClock.elapsedRealtime());
                 }
+            }
+        });
+
+        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                txtTrackTimer.setText(getTime((SystemClock.elapsedRealtime() - chronometer.getBase())/1000));
             }
         });
     }
@@ -156,25 +161,12 @@ public class track_activity extends AppCompatActivity {
     private void startTimer(){
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
-        /*new CountDownTimer(10000,1000){
-
-            @Override
-            public void onTick(long l) {
-                timer++;
-                txtTrackTimer.setText(getTime(timer));
-            }
-
-            @Override
-            public void onFinish() {
-                startTimer();
-            }
-        }.start();*/
     }
 
     //This method convert milliseconds to minute and seconds (int progress)
     //and return in String value, to be displayed in TextView
-    private String getTime(Integer time){
-        int hour,min,sec;
+    private String getTime(long time){
+        long hour,min,sec;
         String hourS, minS,secS;
 
         if (time <60){   //under 1 minute
@@ -190,7 +182,7 @@ public class track_activity extends AppCompatActivity {
         //adding 0 at the beginning to please the eyes
         if (hour<0){hourS = "0"+hour;}else{hourS = String.valueOf(hour);}
         if (min<0){minS = "0"+min;}else{minS = String.valueOf(min);}
-        if (sec <10){secS = "0"+min;}else{secS = String.valueOf(sec);}
+        if (sec <10){secS = "0"+sec;}else{secS = String.valueOf(sec);}
 
         return hourS+":"+minS+":"+secS;
     }
@@ -244,11 +236,6 @@ public class track_activity extends AppCompatActivity {
         super.onResume();
         Log.d("MyTracker","=TrackActivity onResume()");
         registerReceiver(trackerReceiver,new IntentFilter("location_update"));
-        //registerReceiver(trackerReceiver,new IntentFilter("bCastLongLat"));
-        /*Intent intent = getIntent();
-        Log.d("MyTracker","=TrackActivity getIntent: " +
-                "Long="+intent.getStringExtra("long")+
-                "// Lat="+intent.getStringExtra("lat"));*/
     }
 
     //Activity Lifecycle onPause()

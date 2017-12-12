@@ -12,7 +12,6 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 public class TrackerService extends Service {
 
@@ -32,9 +31,7 @@ public class TrackerService extends Service {
     public TrackerService() {
     }
 
-    private void init(){
-        isChanged = false;
-    }
+    private void init(){isChanged = false;}
 
     private void startNoti(){}
 
@@ -129,7 +126,6 @@ public class TrackerService extends Service {
         return distance * 0.104;
     }
 
-
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
@@ -148,10 +144,8 @@ public class TrackerService extends Service {
      //This method handle incoming intent //onStartCommand passed to here eventually
      @Override
      protected void onHandleIntent(Intent intent){
-
      }
      */
-
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
