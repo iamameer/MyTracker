@@ -25,7 +25,6 @@ public final class ActivityContract {
         public static final String COLUMN_NAME_DISTANCE = "distance";
         public static final String COLUMN_NAME_DURATION = "duration";
         public static final String COLUMN_NAME_CALORIES = "calories";
-        public static final String COLUMN_NAME_GPX = "gpx";
     }
 
     /* Inner class that defines the BEST-record table contents */

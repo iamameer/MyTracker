@@ -13,30 +13,27 @@ public class Activities {
     private String distance;
     private String duration;
     private String calories;
-    private String GPX;
 
     //empty constructor
     public Activities(){}
 
     //full pledged constructor
-    public Activities(int id, String date, String step, String distance, String duration, String calories, String GPX){
+    public Activities(int id, String date, String step, String distance, String duration, String calories){
         this._id = id;
         this.date = date;
         this.step = step;
         this.distance = distance;
         this.duration = duration;
         this.calories = calories;
-        this.GPX = GPX;
     }
 
     //constructor without ID
-    public Activities(String date, String step, String distance, String duration, String calories, String GPX){
+    public Activities(String date, String step, String distance, String duration, String calories){
         this.date = date;
         this.step = step;
         this.distance = distance;
         this.duration = duration;
         this.calories = calories;
-        this.GPX = GPX;
     }
 
     //return the id
@@ -77,16 +74,6 @@ public class Activities {
     //set the duration
     public void setDuration(String duration) {
         this.duration = duration;
-    }
-
-    //return the gpx
-    public String getGPX() {
-        return GPX;
-    }
-
-    //set the gpx
-    public void setGPX(String GPX) {
-        this.GPX = GPX;
     }
 
     //return the steps

@@ -20,8 +20,8 @@ public class done_activity extends AppCompatActivity {
     private TextView txtDoneSteps, txtDoneCalory,txtDoneTimer,txtDoneDistance;
     private Button btnDoneMainMenu;
 
-    private int steps,calory,timer,distance;
-    private String sSteps,sCalory,sTimer,sDistance;
+    private String steps,calory,timer,distance;
+    private String sSteps,sCalory,sTimer,sDistance,gpx;
 
     //Init
     private void init(){
@@ -30,11 +30,11 @@ public class done_activity extends AppCompatActivity {
         txtDoneTimer = findViewById(R.id.txtDoneTimer);
         txtDoneDistance = findViewById(R.id.txtDoneDistance);
 
-        steps = getIntent().getIntExtra("steps",0);
-        calory = getIntent().getIntExtra("calory",0);
-        timer = getIntent().getIntExtra("timer",0);
-        distance = getIntent().getIntExtra("distance",0);
-        Log.d("MyTracker", String.valueOf(steps)+"//" + String.valueOf(calory)+"//" + String.valueOf(timer) +"//"+ String.valueOf(distance));
+        steps = getIntent().getExtras().get("steps").toString();
+        calory = getIntent().getExtras().get("calory").toString();
+        timer = getIntent().getExtras().get("timer").toString();
+        distance = getIntent().getExtras().get("distance").toString();
+        //Log.d("MyTracker", String.valueOf(steps)+"//" + String.valueOf(calory)+"//" + String.valueOf(timer) +"//"+ String.valueOf(distance));
 
         sSteps = getIntent().getExtras().get("steps").toString()+" [90%] \n(Best: 9999 steps)";
         sCalory = getIntent().getExtras().get("calory").toString()+" [90%] \n(Best: 9999 kCal)";
@@ -68,8 +68,7 @@ public class done_activity extends AppCompatActivity {
         //https://stackoverflow.com/questions/8654990/how-can-i-get-current-date-in-android
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy");
-
-        Activities activities = new Activities(df.format(c.getTime()),steps,distance,timer,calory,"");
+        Activities activities = new Activities(df.format(c.getTime()),steps,distance,timer,calory);
     }
 
     //Activity Lifecycle onCreate()

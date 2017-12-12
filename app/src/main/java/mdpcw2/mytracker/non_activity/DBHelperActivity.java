@@ -41,8 +41,7 @@ public class DBHelperActivity extends SQLiteOpenHelper{
                 ActivityContract.ActivityEntry.COLUMN_NAME_STEP + " INTEGER," +
                 ActivityContract.ActivityEntry.COLUMN_NAME_DISTANCE + " INTEGER," +
                 ActivityContract.ActivityEntry.COLUMN_NAME_DURATION + " INTEGER," +
-                ActivityContract.ActivityEntry.COLUMN_NAME_CALORIES + " INTEGER," +
-                ActivityContract.ActivityEntry.COLUMN_NAME_GPX + " TEXT " + ")";
+                ActivityContract.ActivityEntry.COLUMN_NAME_CALORIES + " INTEGER" + ")";
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
     }
 
@@ -61,7 +60,6 @@ public class DBHelperActivity extends SQLiteOpenHelper{
         values.put(ActivityContract.ActivityEntry.COLUMN_NAME_DISTANCE, activities.getDistance());
         values.put(ActivityContract.ActivityEntry.COLUMN_NAME_DURATION, activities.getDuration());
         values.put(ActivityContract.ActivityEntry.COLUMN_NAME_CALORIES, activities.getCalories());
-        values.put(ActivityContract.ActivityEntry.COLUMN_NAME_GPX, activities.getGPX());
 
         myCR.insert(MyContentProvider.CONTENT_URI,values);
     }
@@ -74,8 +72,7 @@ public class DBHelperActivity extends SQLiteOpenHelper{
                 ActivityContract.ActivityEntry.COLUMN_NAME_STEP,
                 ActivityContract.ActivityEntry.COLUMN_NAME_DISTANCE,
                 ActivityContract.ActivityEntry.COLUMN_NAME_DURATION,
-                ActivityContract.ActivityEntry.COLUMN_NAME_CALORIES,
-                ActivityContract.ActivityEntry.COLUMN_NAME_GPX};
+                ActivityContract.ActivityEntry.COLUMN_NAME_CALORIES};
 
         String selection = "_id = \"" +_id+"\"";
 
@@ -97,7 +94,6 @@ public class DBHelperActivity extends SQLiteOpenHelper{
                 activities.setDistance(cursor.getString(3));
                 activities.setDuration(cursor.getString(4));
                 activities.setCalories(cursor.getString(5));
-                activities.setGPX(cursor.getString(6));
                 cursor.close();
             }else{
                 activities = null;
@@ -129,8 +125,6 @@ public class DBHelperActivity extends SQLiteOpenHelper{
         values.put(ActivityContract.ActivityEntry.COLUMN_NAME_DISTANCE,distance);
         values.put(ActivityContract.ActivityEntry.COLUMN_NAME_DURATION,duration);
         values.put(ActivityContract.ActivityEntry.COLUMN_NAME_CALORIES,calories);
-        values.put(ActivityContract.ActivityEntry.COLUMN_NAME_GPX,gpx);
-
 
         int rowsUpdated = myCR.update(MyContentProvider.CONTENT_URI,values,selection,null);
 
@@ -146,8 +140,7 @@ public class DBHelperActivity extends SQLiteOpenHelper{
                 ActivityContract.ActivityEntry.COLUMN_NAME_STEP,
                 ActivityContract.ActivityEntry.COLUMN_NAME_DISTANCE,
                 ActivityContract.ActivityEntry.COLUMN_NAME_DURATION,
-                ActivityContract.ActivityEntry.COLUMN_NAME_CALORIES,
-                ActivityContract.ActivityEntry.COLUMN_NAME_GPX};
+                ActivityContract.ActivityEntry.COLUMN_NAME_CALORIES};
 
         Cursor cursor = myCR.query(
                 MyContentProvider.CONTENT_URI,projection,null,null,null);
@@ -165,7 +158,6 @@ public class DBHelperActivity extends SQLiteOpenHelper{
                     activities.setDistance(cursor.getString(3));
                     activities.setDuration(cursor.getString(4));
                     activities.setCalories(cursor.getString(5));
-                    activities.setGPX(cursor.getString(6));
                     result.add(activities);
                 }while(cursor.moveToNext());
             }cursor.close();
