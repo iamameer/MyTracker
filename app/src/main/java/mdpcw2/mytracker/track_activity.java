@@ -60,6 +60,7 @@ public class track_activity extends AppCompatActivity {
         txtTrackTimer = findViewById(R.id.txtTrackTimer);
 
         chronometer = findViewById(R.id.chronometer);
+        chronometer.setVisibility(View.INVISIBLE);
 
         //Get date
         //https://stackoverflow.com/questions/8654990/how-can-i-get-current-date-in-android
