@@ -34,6 +34,7 @@ public class done_activity extends AppCompatActivity {
         calory = getIntent().getExtras().get("calory").toString();
         timer = getIntent().getExtras().get("timer").toString();
         distance = getIntent().getExtras().get("distance").toString();
+        add();
         //Log.d("MyTracker", String.valueOf(steps)+"//" + String.valueOf(calory)+"//" + String.valueOf(timer) +"//"+ String.valueOf(distance));
 
         sSteps = getIntent().getExtras().get("steps").toString()+" [90%] \n(Best: 9999 steps)";
@@ -69,6 +70,16 @@ public class done_activity extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy");
         Activities activities = new Activities(df.format(c.getTime()),steps,distance,timer,calory);
+
+        try{
+           dbHelperActivity.addActivity(activities);
+            Log.d("MyTracker","=DoneActivity: Successfully added a new record");
+            Toast.makeText(getApplicationContext(),"New record successfully added",Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            Log.d("MyTracker",e.toString());
+            Log.d("MyTracker","=DoneActivity: Error adding new record");
+            Toast.makeText(getApplicationContext(),"Error adding new record",Toast.LENGTH_SHORT).show();
+        }
     }
 
     //Activity Lifecycle onCreate()
