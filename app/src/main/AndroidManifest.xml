@@ -19,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".track_activity" android:configChanges="keyboardHidden|orientation|screenLayout|screenSize"/>
 
         <provider
@@ -27,7 +28,6 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".setGoal_activity" android:configChanges="keyboardHidden|orientation" />
         <activity android:name=".done_activity" android:configChanges="keyboardHidden|orientation" />
         <activity android:name=".history_activity" android:configChanges="keyboardHidden|orientation"/>
         <activity android:name=".detail_activity" android:configChanges="keyboardHidden|orientation"/>

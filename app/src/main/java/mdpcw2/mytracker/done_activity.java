@@ -21,7 +21,7 @@ public class done_activity extends AppCompatActivity {
     private Button btnDoneMainMenu;
 
     private String steps,calory,timer,distance;
-    private String sSteps,sCalory,sTimer,sDistance,gpx;
+    private String sSteps,sCalory,sTimer,sDistance;
 
     //Init
     private void init(){
@@ -37,10 +37,10 @@ public class done_activity extends AppCompatActivity {
         add();
         //Log.d("MyTracker", String.valueOf(steps)+"//" + String.valueOf(calory)+"//" + String.valueOf(timer) +"//"+ String.valueOf(distance));
 
-        sSteps = getIntent().getExtras().get("steps").toString()+" [90%] \n(Best: 9999 steps)";
-        sCalory = getIntent().getExtras().get("calory").toString()+" [90%] \n(Best: 9999 kCal)";
-        sTimer = getIntent().getExtras().get("timer").toString()+" [90%] \n(Best: 00:00:00)";
-        sDistance = getIntent().getExtras().get("distance").toString()+" [90%] \n(Best: 9999 m)";
+        sSteps = getIntent().getExtras().get("steps").toString()+" \n(Best: 9999 steps)";
+        sCalory = getIntent().getExtras().get("calory").toString()+" \n(Best: 9999 kCal)";
+        sTimer = getIntent().getExtras().get("timer").toString()+" \n(Best: 00:00:00)";
+        sDistance = getIntent().getExtras().get("distance").toString()+" \n(Best: 9999 m)";
 
         txtDoneSteps.setText(sSteps);
         txtDoneCalory.setText(sCalory);

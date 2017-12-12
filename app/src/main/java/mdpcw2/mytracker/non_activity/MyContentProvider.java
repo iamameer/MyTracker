@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.text.TextUtils;
 
 public class MyContentProvider extends ContentProvider {
 
@@ -39,8 +40,36 @@ public class MyContentProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        // Implement this to handle requests to delete one or more rows.
-        throw new UnsupportedOperationException("Not yet implemented");
+        //Handle requests to delete selected row.
+        int uriType = sURIMatcher.match(uri);
+        SQLiteDatabase sqlDB = myDB.getWritableDatabase();
+        int rowsDeleted = 0;
+
+        switch (uriType) {
+            case ACTIVITY:
+                rowsDeleted = sqlDB.delete(ActivityContract.ActivityEntry.TABLE_NAME,
+                        selection,
+                        selectionArgs);
+                break;
+
+            case ACTIVITY_ID:
+                String id = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(selection)) {
+                    rowsDeleted = sqlDB.delete(ActivityContract.ActivityEntry.TABLE_NAME,
+                            ActivityContract.ActivityEntry.COLUMN_NAME_ID + "=" + id,
+                            null);
+                } else {
+                    rowsDeleted = sqlDB.delete(ActivityContract.ActivityEntry.TABLE_NAME,
+                            ActivityContract.ActivityEntry.COLUMN_NAME_ID + "=" + id
+                                    + " and " + selection,
+                            selectionArgs);
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return rowsDeleted;
     }
 
     @Override

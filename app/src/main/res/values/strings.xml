@@ -25,4 +25,5 @@
 
     <string name="test">99999 Steps</string>
     <string name="back2">BACK</string>
+    <string name="delete">DELETE</string>
 </resources>

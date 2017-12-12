@@ -36,9 +36,7 @@ public class history_activity extends AppCompatActivity {
         btnHistoryBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO finish
-                Intent intent = new Intent(getApplicationContext(),detail_activity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -58,6 +56,7 @@ public class history_activity extends AppCompatActivity {
 
         if (activities!= null){
             Intent intent = new Intent(getApplicationContext(),detail_activity.class);
+            intent.putExtra("id",activitiesArrayList.get(position).get_id());
             intent.putExtra("date",activities.getDate());
             intent.putExtra("steps",activities.getStep());
             intent.putExtra("distance",activities.getDistance());
@@ -72,7 +71,7 @@ public class history_activity extends AppCompatActivity {
 
     //Method to display database in the listView
     private void display(){
-        Log.d("MyTracker","=HistoryActivity retrieving record from database");
+        Log.d("MyTracker","=HistoryActivity: Retrieving record from database");
         DBHelperActivity dbHelperActivity = new DBHelperActivity(this,null,null,1);
         activitiesArrayList = dbHelperActivity.display();
 
@@ -99,7 +98,6 @@ public class history_activity extends AppCompatActivity {
 
         init();
         setEvents();
-        display();
         Log.d("MyTracker","=HistoryActivity onCreate()");
     }
 
@@ -120,6 +118,7 @@ public class history_activity extends AppCompatActivity {
     //Activity Lifecycle onResume()
     @Override
     protected void onResume(){
+        display();
         super.onResume();
         Log.d("MyTracker","=HistoryActivity onResume()");
     }

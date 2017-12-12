@@ -6,17 +6,23 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import mdpcw2.mytracker.non_activity.DBHelperActivity;
 
 public class detail_activity extends AppCompatActivity {
 
     //Global Variables
+    private int id;
     private String steps, date, timer, distance, calory;
 
     private TextView txtDetailStep, txtDetailDate, txtDetailTimer, txtDetailDistance, txtDetailCalory;
-    private Button btnDetailBack;
+    private Button btnDetailBack, btnDetailDelete;
 
     //Init
     private void init(){
+        id = getIntent().getExtras().getInt("id");
+        Log.d("MyTracker","ID: "+String.valueOf(id));
         date = getIntent().getExtras().get("date").toString();
         steps = getIntent().getExtras().get("steps").toString();
         distance = getIntent().getExtras().get("distance").toString();
@@ -24,6 +30,7 @@ public class detail_activity extends AppCompatActivity {
         calory = getIntent().getExtras().get("calory").toString();
 
         btnDetailBack = findViewById(R.id.btnDetailBack);
+        btnDetailDelete = findViewById(R.id.btnDetailDelete);
 
         txtDetailDate = findViewById(R.id.txtDetailDate);
         txtDetailStep = findViewById(R.id.txtDetailStep);
@@ -46,6 +53,30 @@ public class detail_activity extends AppCompatActivity {
                 finish();
             }
         });
+
+        btnDetailDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                delete();
+            }
+        });
+    }
+
+    //Method to delete the selected activity
+    private void delete(){
+        Log.d("MyTracker","=DetailActivity: Deleting a record from database");
+        DBHelperActivity dbHelperActivity = new DBHelperActivity(this,null,null,1);
+
+        boolean result = dbHelperActivity.deleteActivity(id);
+
+        if(result){
+            Log.d("MyTracker","=DetailActivity: Successfully deleted record");
+            Toast.makeText(getApplicationContext(),"Record successfully deleted",Toast.LENGTH_SHORT).show();
+        }else {
+            Log.d("MyTracker","=DetailActivity: Error deleted record");
+            Toast.makeText(getApplicationContext(),"Error deleting recipe",Toast.LENGTH_SHORT).show();
+        }
+        finish();
     }
 
     //Activity Lifecycle onCreate()
