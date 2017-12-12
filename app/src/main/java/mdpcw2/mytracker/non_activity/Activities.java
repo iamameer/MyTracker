@@ -9,18 +9,28 @@ package mdpcw2.mytracker.non_activity;
 public class Activities {
     private int _id;
     private String date;
-    private int step;
-    private int distance;
-    private int duration;
-    private int calories;
+    private String step;
+    private String distance;
+    private String duration;
+    private String calories;
     private String GPX;
 
     //empty constructor
     public Activities(){}
 
     //full pledged constructor
-    public Activities(int id, String date, int step, int distance, int duration, int calories, String GPX){
+    public Activities(int id, String date, String step, String distance, String duration, String calories, String GPX){
         this._id = id;
+        this.date = date;
+        this.step = step;
+        this.distance = distance;
+        this.duration = duration;
+        this.calories = calories;
+        this.GPX = GPX;
+    }
+
+    //constructor without ID
+    public Activities(String date, String step, String distance, String duration, String calories, String GPX){
         this.date = date;
         this.step = step;
         this.distance = distance;
@@ -50,22 +60,22 @@ public class Activities {
     }
 
     //return the distance
-    public Integer getDistance() {
+    public String getDistance() {
         return distance;
     }
 
     //set the distance
-    public void setDistance(Integer distance) {
+    public void setDistance(String distance) {
         this.distance = distance;
     }
 
     //return the duration
-    public Integer getDuration() {
+    public String getDuration() {
         return duration;
     }
 
     //set the duration
-    public void setDuration(Integer duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 
@@ -80,22 +90,22 @@ public class Activities {
     }
 
     //return the steps
-    public int getStep() {
+    public String getStep() {
         return step;
     }
 
     //set the steps
-    public void setStep(int step) {
+    public void setStep(String step) {
         this.step = step;
     }
 
     //return the calory
-    public int getCalories() {
+    public String getCalories() {
         return calories;
     }
 
     //set the calories
-    public void setCalories(int calories) {
+    public void setCalories(String calories) {
         this.calories = calories;
     }
 }

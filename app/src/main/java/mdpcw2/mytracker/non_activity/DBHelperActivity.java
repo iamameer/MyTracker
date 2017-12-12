@@ -38,7 +38,6 @@ public class DBHelperActivity extends SQLiteOpenHelper{
                 ActivityContract.ActivityEntry.TABLE_NAME + "(" +
                 ActivityContract.ActivityEntry.COLUMN_NAME_ID + " INTEGER PRIMARY KEY, " +
                 ActivityContract.ActivityEntry.COLUMN_NAME_DATE + " TEXT," +
-                ActivityContract.ActivityEntry.COLUMN_NAME_ACTIVITY + " TEXT," +
                 ActivityContract.ActivityEntry.COLUMN_NAME_STEP + " INTEGER," +
                 ActivityContract.ActivityEntry.COLUMN_NAME_DISTANCE + " INTEGER," +
                 ActivityContract.ActivityEntry.COLUMN_NAME_DURATION + " INTEGER," +
@@ -58,7 +57,6 @@ public class DBHelperActivity extends SQLiteOpenHelper{
     public void addActivity(Activities activities){
         ContentValues values = new ContentValues();
         values.put(ActivityContract.ActivityEntry.COLUMN_NAME_DATE, activities.getDate());
-        values.put(ActivityContract.ActivityEntry.COLUMN_NAME_ACTIVITY, activities.getActivity());
         values.put(ActivityContract.ActivityEntry.COLUMN_NAME_STEP, activities.getStep());
         values.put(ActivityContract.ActivityEntry.COLUMN_NAME_DISTANCE, activities.getDistance());
         values.put(ActivityContract.ActivityEntry.COLUMN_NAME_DURATION, activities.getDuration());
@@ -73,7 +71,6 @@ public class DBHelperActivity extends SQLiteOpenHelper{
         String[] projection = {
                 ActivityContract.ActivityEntry.COLUMN_NAME_ID,
                 ActivityContract.ActivityEntry.COLUMN_NAME_DATE,
-                ActivityContract.ActivityEntry.COLUMN_NAME_ACTIVITY,
                 ActivityContract.ActivityEntry.COLUMN_NAME_STEP,
                 ActivityContract.ActivityEntry.COLUMN_NAME_DISTANCE,
                 ActivityContract.ActivityEntry.COLUMN_NAME_DURATION,
@@ -96,12 +93,11 @@ public class DBHelperActivity extends SQLiteOpenHelper{
                 cursor.moveToFirst();
                 activities.set_id(Integer.parseInt(cursor.getString(0)));
                 activities.setDate(cursor.getString(1));
-                activities.setActivity(cursor.getString(2));
-                activities.setStep(cursor.getInt(3));
-                activities.setDistance(cursor.getInt(4));
-                activities.setDuration(cursor.getInt(5));
-                activities.setCalories(cursor.getInt(6));
-                activities.setGPX(cursor.getString(7));
+                activities.setStep(cursor.getString(2));
+                activities.setDistance(cursor.getString(3));
+                activities.setDuration(cursor.getString(4));
+                activities.setCalories(cursor.getString(5));
+                activities.setGPX(cursor.getString(6));
                 cursor.close();
             }else{
                 activities = null;
@@ -124,12 +120,11 @@ public class DBHelperActivity extends SQLiteOpenHelper{
     }
 
     //this method update the current recipe
-    public boolean updateActivity(int _id,String date, String activity, int step, int distance, int duration, int calories, String gpx){
+    public boolean updateActivity(int _id,String date, int step, int distance, int duration, int calories, String gpx){
         boolean result = false;
         String selection = "_id = \""+_id+" \"";
         ContentValues values = new ContentValues();
         values.put(ActivityContract.ActivityEntry.COLUMN_NAME_DATE,date);
-        values.put(ActivityContract.ActivityEntry.COLUMN_NAME_ACTIVITY,activity);
         values.put(ActivityContract.ActivityEntry.COLUMN_NAME_STEP,step);
         values.put(ActivityContract.ActivityEntry.COLUMN_NAME_DISTANCE,distance);
         values.put(ActivityContract.ActivityEntry.COLUMN_NAME_DURATION,duration);
@@ -148,7 +143,6 @@ public class DBHelperActivity extends SQLiteOpenHelper{
         String[] projection = {
                 ActivityContract.ActivityEntry.COLUMN_NAME_ID,
                 ActivityContract.ActivityEntry.COLUMN_NAME_DATE,
-                ActivityContract.ActivityEntry.COLUMN_NAME_ACTIVITY,
                 ActivityContract.ActivityEntry.COLUMN_NAME_STEP,
                 ActivityContract.ActivityEntry.COLUMN_NAME_DISTANCE,
                 ActivityContract.ActivityEntry.COLUMN_NAME_DURATION,
@@ -167,12 +161,11 @@ public class DBHelperActivity extends SQLiteOpenHelper{
                     Log.d("MyRecipe","cursor: inside DO");
                     activities.set_id(Integer.parseInt(cursor.getString(0)));
                     activities.setDate(cursor.getString(1));
-                    activities.setActivity(cursor.getString(2));
-                    activities.setStep(cursor.getInt(3));
-                    activities.setDistance(cursor.getInt(4));
-                    activities.setDuration(cursor.getInt(5));
-                    activities.setCalories(cursor.getInt(6));
-                    activities.setGPX(cursor.getString(7));
+                    activities.setStep(cursor.getString(2));
+                    activities.setDistance(cursor.getString(3));
+                    activities.setDuration(cursor.getString(4));
+                    activities.setCalories(cursor.getString(5));
+                    activities.setGPX(cursor.getString(6));
                     result.add(activities);
                 }while(cursor.moveToNext());
             }cursor.close();

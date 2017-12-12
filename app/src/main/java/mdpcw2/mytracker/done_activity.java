@@ -6,7 +6,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import mdpcw2.mytracker.non_activity.Activities;
 import mdpcw2.mytracker.non_activity.DBHelperActivity;
 
 public class done_activity extends AppCompatActivity {
@@ -15,7 +20,8 @@ public class done_activity extends AppCompatActivity {
     private TextView txtDoneSteps, txtDoneCalory,txtDoneTimer,txtDoneDistance;
     private Button btnDoneMainMenu;
 
-    private String steps,calory,timer,distance;
+    private int steps,calory,timer,distance;
+    private String sSteps,sCalory,sTimer,sDistance;
 
     //Init
     private void init(){
@@ -24,15 +30,21 @@ public class done_activity extends AppCompatActivity {
         txtDoneTimer = findViewById(R.id.txtDoneTimer);
         txtDoneDistance = findViewById(R.id.txtDoneDistance);
 
-        steps = getIntent().getExtras().get("steps").toString()+" [90%] \n(Best: 9999 steps)";
-        calory = getIntent().getExtras().get("calory").toString()+" [90%] \n(Best: 9999 kCal)";
-        timer = getIntent().getExtras().get("timer").toString()+" [90%] \n(Best: 00:00:00)";
-        distance = getIntent().getExtras().get("distance").toString()+" [90%] \n(Best: 9999 m)";
+        steps = getIntent().getIntExtra("steps",0);
+        calory = getIntent().getIntExtra("calory",0);
+        timer = getIntent().getIntExtra("timer",0);
+        distance = getIntent().getIntExtra("distance",0);
+        Log.d("MyTracker", String.valueOf(steps)+"//" + String.valueOf(calory)+"//" + String.valueOf(timer) +"//"+ String.valueOf(distance));
 
-        txtDoneSteps.setText(steps);
-        txtDoneCalory.setText(calory);
-        txtDoneTimer.setText(timer);
-        txtDoneDistance.setText(distance);
+        sSteps = getIntent().getExtras().get("steps").toString()+" [90%] \n(Best: 9999 steps)";
+        sCalory = getIntent().getExtras().get("calory").toString()+" [90%] \n(Best: 9999 kCal)";
+        sTimer = getIntent().getExtras().get("timer").toString()+" [90%] \n(Best: 00:00:00)";
+        sDistance = getIntent().getExtras().get("distance").toString()+" [90%] \n(Best: 9999 m)";
+
+        txtDoneSteps.setText(sSteps);
+        txtDoneCalory.setText(sCalory);
+        txtDoneTimer.setText(sTimer);
+        txtDoneDistance.setText(sDistance);
 
         btnDoneMainMenu = findViewById(R.id.btnDoneMainMenu);
     }
@@ -52,7 +64,12 @@ public class done_activity extends AppCompatActivity {
         Log.d("MyTracker","=DoneActivity Adding new record into database");
         DBHelperActivity dbHelperActivity = new DBHelperActivity(this,null,null,1);
 
-        //String date, activyt
+        //Get date
+        //https://stackoverflow.com/questions/8654990/how-can-i-get-current-date-in-android
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy");
+
+        Activities activities = new Activities(df.format(c.getTime()),steps,distance,timer,calory,"");
     }
 
     //Activity Lifecycle onCreate()
