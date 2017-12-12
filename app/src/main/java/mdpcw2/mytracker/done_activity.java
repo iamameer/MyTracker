@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import mdpcw2.mytracker.non_activity.DBHelperActivity;
+
 public class done_activity extends AppCompatActivity {
 
     //Global Variables
@@ -43,6 +45,14 @@ public class done_activity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    //This method add the new record into the database
+    public void add(){
+        Log.d("MyTracker","=DoneActivity Adding new record into database");
+        DBHelperActivity dbHelperActivity = new DBHelperActivity(this,null,null,1);
+
+        //String date, activyt
     }
 
     //Activity Lifecycle onCreate()

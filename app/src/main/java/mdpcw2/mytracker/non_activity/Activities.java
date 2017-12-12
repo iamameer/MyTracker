@@ -9,7 +9,6 @@ package mdpcw2.mytracker.non_activity;
 public class Activities {
     private int _id;
     private String date;
-    private String activity;
     private int step;
     private int distance;
     private int duration;
@@ -20,10 +19,9 @@ public class Activities {
     public Activities(){}
 
     //full pledged constructor
-    public Activities(int id, String date, String activity, int step, int distance, int duration, int calories, String GPX){
+    public Activities(int id, String date, int step, int distance, int duration, int calories, String GPX){
         this._id = id;
         this.date = date;
-        this.activity = activity;
         this.step = step;
         this.distance = distance;
         this.duration = duration;
@@ -49,16 +47,6 @@ public class Activities {
     //set the date
     public void setDate(String date) {
         this.date = date;
-    }
-
-    //return the activity
-    public String getActivity() {
-        return activity;
-    }
-
-    //set the activity
-    public void setActivity(String activity) {
-        this.activity = activity;
     }
 
     //return the distance
