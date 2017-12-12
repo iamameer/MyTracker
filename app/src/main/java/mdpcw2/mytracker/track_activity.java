@@ -32,7 +32,7 @@ public class track_activity extends AppCompatActivity {
     private static final int PERM_ID = 99;
     private Button btnTrackStartStop;
     private ProgressBar progressBar;
-    private TextView txtTrackDistance,txtTrackSteps, txtTrackCalory, txtTrackDate;
+    private TextView txtTrackDistance,txtTrackSteps, txtTrackCalory, txtTrackDate, txtTrackTimer;
 
     private String longitude,latitude;
     private String distance,steps,calory;
@@ -52,6 +52,7 @@ public class track_activity extends AppCompatActivity {
         txtTrackSteps = findViewById(R.id.txtTrackSteps);
         txtTrackCalory = findViewById(R.id.txtTrackCalory);
         txtTrackDate = findViewById(R.id.txtTrackDate);
+        txtTrackTimer = findViewById(R.id.txtTrackTimer);
 
         //Get date
         //https://stackoverflow.com/questions/8654990/how-can-i-get-current-date-in-android
@@ -69,6 +70,10 @@ public class track_activity extends AppCompatActivity {
             public void onClick(View view) {
                 if (btnTrackStartStop.getText().toString().equals("START")){
                     progressBar.setVisibility(View.VISIBLE);
+                    txtTrackCalory.setText(R.string.initCalory);
+                    txtTrackTimer.setText(R.string.initTimer);
+                    txtTrackDistance.setText(R.string.initDistance);
+                    txtTrackSteps.setText(R.string.empty);
                     btnTrackStartStop.setText(R.string.stop);
                     startMyService();
                 }else if(btnTrackStartStop.getText().toString().equals("STOP")){
