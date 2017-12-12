@@ -23,6 +23,8 @@ public class history_activity extends AppCompatActivity {
     private Button btnHistoryBack;
     private ListView listView;
 
+    ArrayList<Activities> activitiesArrayList;
+
     //Init
     private void init(){
         btnHistoryBack = findViewById(R.id.btnHistoryBack);
@@ -49,10 +51,10 @@ public class history_activity extends AppCompatActivity {
     //Method to view Activity detail
     private void viewActivity(int position){
         Log.d("MyTracker","=HistoryActivity: Launching detail_activity--> View Recipe : "+listView.getItemAtPosition(position));
-        Log.d("MyTracker",String.valueOf(position));
+        Log.d("MyTracker","Item position: "+String.valueOf(position));
         //implementing search()
         DBHelperActivity dbHelperActivity = new DBHelperActivity(this,null,null,1);
-        Activities activities = dbHelperActivity.findActivity(position-1);
+        Activities activities = dbHelperActivity.findActivity(activitiesArrayList.get(position).get_id());
 
         if (activities!= null){
             Intent intent = new Intent(getApplicationContext(),detail_activity.class);
@@ -72,7 +74,7 @@ public class history_activity extends AppCompatActivity {
     private void display(){
         Log.d("MyTracker","=HistoryActivity retrieving record from database");
         DBHelperActivity dbHelperActivity = new DBHelperActivity(this,null,null,1);
-        ArrayList<Activities> activitiesArrayList = dbHelperActivity.display();
+        activitiesArrayList = dbHelperActivity.display();
 
         //display if the list is not empty, else simply state empty
         if (activitiesArrayList!=null){
