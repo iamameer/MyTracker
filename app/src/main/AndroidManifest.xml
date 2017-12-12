@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:configChanges="keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,10 +27,10 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".setGoal_activity" />
-        <activity android:name=".done_activity" />
-        <activity android:name=".history_activity" />
-        <activity android:name=".detail_activity" />
+        <activity android:name=".setGoal_activity" android:configChanges="keyboardHidden|orientation" />
+        <activity android:name=".done_activity" android:configChanges="keyboardHidden|orientation" />
+        <activity android:name=".history_activity" android:configChanges="keyboardHidden|orientation"/>
+        <activity android:name=".detail_activity" android:configChanges="keyboardHidden|orientation"/>
 
         <service
             android:name=".non_activity.TrackerService"

@@ -90,7 +90,7 @@ public class track_activity extends AppCompatActivity {
                     btnTrackStartStop.setText(R.string.start);
                     stopMyService();
                     chronometer.stop();
-                    if (distance!=null){
+                    if (!distance.equals("0 m")){
                         Intent intent = new Intent(getApplicationContext(),done_activity.class);
                         intent.putExtra("steps",steps);
                         intent.putExtra("distance",distance);
