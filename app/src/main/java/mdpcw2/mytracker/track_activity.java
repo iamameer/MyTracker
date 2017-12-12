@@ -185,7 +185,7 @@ public class track_activity extends AppCompatActivity {
         if (min<0){minS = "0"+min;}else{minS = String.valueOf(min);}
         if (sec <10){secS = "0"+sec;}else{secS = String.valueOf(sec);}
 
-        return hourS+":"+minS+":"+secS;
+        return hourS+"h:"+minS+"m:"+secS+"s";
     }
 
     //Activity Lifecycle onCreate()

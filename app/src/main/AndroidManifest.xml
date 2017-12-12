@@ -12,14 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:configChanges="keyboardHidden|orientation">
+        <activity android:name=".MainActivity" android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".track_activity" />
+        <activity android:name=".track_activity" android:configChanges="keyboardHidden|orientation|screenLayout|screenSize"/>
 
         <provider
             android:name=".non_activity.MyContentProvider"
