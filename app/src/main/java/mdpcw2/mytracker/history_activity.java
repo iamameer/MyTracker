@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -38,6 +39,33 @@ public class history_activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {viewActivity(i);}
+        });
+    }
+
+    //Method to view Activity detail
+    private void viewActivity(int position){
+        Log.d("MyTracker","=HistoryActivity: Launching detail_activity--> View Recipe : "+listView.getItemAtPosition(position));
+        Log.d("MyTracker",String.valueOf(position));
+        //implementing search()
+        DBHelperActivity dbHelperActivity = new DBHelperActivity(this,null,null,1);
+        Activities activities = dbHelperActivity.findActivity(position-1);
+
+        if (activities!= null){
+            Intent intent = new Intent(getApplicationContext(),detail_activity.class);
+            intent.putExtra("date",activities.getDate());
+            intent.putExtra("steps",activities.getStep());
+            intent.putExtra("distance",activities.getDistance());
+            intent.putExtra("timer",activities.getDuration());
+            intent.putExtra("calory",activities.getCalories());
+            startActivity(intent);
+        }else{
+            Log.d("MyTracker","=HistoryActivity: Error viewing item");
+            Toast.makeText(getApplicationContext(),"Error viewing item",Toast.LENGTH_SHORT).show();
+        }
     }
 
     //Method to display database in the listView

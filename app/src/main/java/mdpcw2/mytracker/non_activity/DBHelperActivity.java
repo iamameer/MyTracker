@@ -88,7 +88,8 @@ public class DBHelperActivity extends SQLiteOpenHelper{
         try {
             if (cursor.moveToFirst()){
                 cursor.moveToFirst();
-                activities.set_id(Integer.parseInt(cursor.getString(0)));
+                //activities.set_id(Integer.parseInt(cursor.getString(0)));
+                activities.set_id(cursor.getInt(0));
                 activities.setDate(cursor.getString(1));
                 activities.setStep(cursor.getString(2));
                 activities.setDistance(cursor.getString(3));
