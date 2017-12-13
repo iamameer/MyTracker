@@ -22,6 +22,7 @@ import android.app.ActivityManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -169,11 +170,12 @@ public class track_activity extends AppCompatActivity {
     private void startMyService(){
         Intent intent = new Intent(getApplicationContext(), TrackerService.class);
         startService(intent);
+        registerReceiver(trackerReceiver,new IntentFilter("location_update"));
     }
 
     //Method to stop service
     private void stopMyService(){
-        Intent intent = new Intent(getApplicationContext(), TrackerService.class);
+        Intent intent = new Intent(this, TrackerService.class);
         stopService(intent);
     }
 
@@ -265,7 +267,6 @@ public class track_activity extends AppCompatActivity {
         init();
         setEvents();
         Log.d("MyTracker","=TrackActivity onCreate()");
-
         trackerReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -282,6 +283,7 @@ public class track_activity extends AppCompatActivity {
                 }
             }
         };
+        stopMyService();
     }
 
     //Activity Lifecycle onStart()
@@ -303,10 +305,10 @@ public class track_activity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         Log.d("MyTracker","=TrackActivity onResume() | isServiceRunning: "+isServiceRunning(getApplicationContext()));
-        registerReceiver(trackerReceiver,new IntentFilter("location_update"));
         if (isServiceRunning(getApplicationContext())){
             progressBar.setVisibility(View.VISIBLE);
             btnTrackStartStop.setText(R.string.stop);
+            registerReceiver(trackerReceiver,new IntentFilter("location_update"));
         }
     }
 

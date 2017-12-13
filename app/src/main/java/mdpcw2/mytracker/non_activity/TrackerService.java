@@ -12,6 +12,7 @@
 package mdpcw2.mytracker.non_activity;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -41,6 +42,7 @@ public class TrackerService extends Service {
 
     private double initLong,initLat, newLong, newLat;
     private boolean isChanged;
+    private boolean canStart;
 
     private float distance;
     private double steps, calory;
@@ -50,7 +52,10 @@ public class TrackerService extends Service {
     }
 
     //initializes variable
-    private void init(){isChanged = false;}
+    private void init(){
+        isChanged = false;
+        canStart = false;
+    }
 
     //method to start a GPS Listener
     //https://www.youtube.com/watch?v=lvcGh2ZgHeA
@@ -86,7 +91,9 @@ public class TrackerService extends Service {
                 intent.putExtra("distance",Math.round(distance));
                 intent.putExtra("steps",Math.round(steps));
                 intent.putExtra("calory",Math.round(calory));
-                sendBroadcast(intent);
+                if(canStart){
+                    sendBroadcast(intent);
+                }
                 isChanged = true;
             }
 
@@ -115,7 +122,7 @@ public class TrackerService extends Service {
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         initLong = location.getLongitude();
         initLat = location.getLatitude();
-        Log.d("MyTracker","**initLong: "+initLong+" //initLat: "+initLat);
+        Log.d("MyTracker","**initLong: "+initLong+" || **initLat: "+initLat);
     }
 
     //Method to calculate distance
@@ -157,6 +164,7 @@ public class TrackerService extends Service {
         init();
         listener = null;
         Log.d("MyTracker","@@MyTrackerService created");
+        canStart = true;
     }
 
     /*
@@ -180,6 +188,8 @@ public class TrackerService extends Service {
     public void onDestroy() {
         super.onDestroy();
         listener = null;
+        locationManager = null;
+        stopSelf();
         Log.d("MyTracker","@@MyTrackerService destroyed");
     }
 }
