@@ -38,11 +38,15 @@ public class detail_activity extends AppCompatActivity {
         txtDetailDistance = findViewById(R.id.txtDetailDistance);
         txtDetailCalory = findViewById(R.id.txtDetailCalory);
 
+        String sCalory,sDistance;
+        sCalory = calory +" kCal";
+        sDistance = distance +" m";
+        txtDetailCalory.setText(sCalory);
+        txtDetailDistance.setText(sDistance);
         txtDetailDate.setText(date);
         txtDetailStep.setText(steps);
-        txtDetailDistance.setText(distance);
         txtDetailTimer.setText(timer);
-        txtDetailCalory.setText(calory);
+
     }
 
     //Setting up events
