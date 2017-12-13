@@ -8,27 +8,40 @@
     tools:context="mdpcw2.mytracker.MainActivity"
     tools:layout_editor_absoluteY="81dp">
 
-    <ImageView
-        android:id="@+id/imgMainStart"
-        android:layout_width="150dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="156dp"
-        android:foregroundGravity="center"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/start" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="246dp"
+        android:layout_marginTop="160dp"
+        android:orientation="vertical"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/imgMainHistory"
-        android:layout_width="147dp"
-        android:layout_height="89dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="292dp"
-        android:foregroundGravity="center"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/history" />
+        <ImageView
+            android:id="@+id/imgMainStart"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="50dp"
+            android:layout_marginEnd="8dp"
+            android:foregroundGravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.009"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/start" />
+
+        <ImageView
+            android:id="@+id/imgMainHistory"
+            android:layout_width="match_parent"
+            android:layout_height="89dp"
+            android:layout_marginEnd="8dp"
+            android:foregroundGravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/history" />
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
