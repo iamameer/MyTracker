@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import mdpcw2.mytracker.non_activity.Activities;
 import mdpcw2.mytracker.non_activity.DBHelperActivity;
@@ -68,7 +69,7 @@ public class done_activity extends AppCompatActivity {
         //Get date
         //https://stackoverflow.com/questions/8654990/how-can-i-get-current-date-in-android
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
         Activities activities = new Activities(df.format(c.getTime()),steps,distance,timer,calory);
 
         try{

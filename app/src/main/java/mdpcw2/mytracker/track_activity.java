@@ -26,6 +26,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Timer;
 
 import mdpcw2.mytracker.non_activity.TrackerService;
@@ -65,7 +66,7 @@ public class track_activity extends AppCompatActivity {
         //Get date
         //https://stackoverflow.com/questions/8654990/how-can-i-get-current-date-in-android
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
         txtTrackDate.setText(df.format(c.getTime()));
 
         check_permission();
