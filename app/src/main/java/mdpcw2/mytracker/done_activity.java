@@ -23,6 +23,7 @@ public class done_activity extends AppCompatActivity {
 
     private String steps,calory,timer,distance;
     private String sSteps,sCalory,sTimer,sDistance;
+    private String bStep, bCalory,bDistance;
 
     //Init
     private void init(){
@@ -36,12 +37,12 @@ public class done_activity extends AppCompatActivity {
         timer = getIntent().getExtras().get("timer").toString();
         distance = getIntent().getExtras().get("distance").toString();
         add();
-        //Log.d("MyTracker", String.valueOf(steps)+"//" + String.valueOf(calory)+"//" + String.valueOf(timer) +"//"+ String.valueOf(distance));
 
-        sSteps = getIntent().getExtras().get("steps").toString()+" \n(Best: 9999 steps)";
-        sCalory = getIntent().getExtras().get("calory").toString()+" \n(Best: 9999 kCal)";
-        sTimer = getIntent().getExtras().get("timer").toString()+" \n(Best: 00:00:00)";
-        sDistance = getIntent().getExtras().get("distance").toString()+" \n(Best: 9999 m)";
+        getBest();
+        sSteps = getIntent().getExtras().get("steps").toString()+" \n(Best: "+bStep+")";
+        sCalory = getIntent().getExtras().get("calory").toString()+" \n(Best: "+bCalory+")";
+        sTimer = getIntent().getExtras().get("timer").toString();
+        sDistance = getIntent().getExtras().get("distance").toString()+" \n(Best: "+bDistance+")";
 
         txtDoneSteps.setText(sSteps);
         txtDoneCalory.setText(sCalory);
@@ -62,7 +63,7 @@ public class done_activity extends AppCompatActivity {
     }
 
     //This method add the new record into the database
-    public void add(){
+    private void add(){
         Log.d("MyTracker","=DoneActivity Adding new record into database");
         DBHelperActivity dbHelperActivity = new DBHelperActivity(this,null,null,1);
 
@@ -81,6 +82,16 @@ public class done_activity extends AppCompatActivity {
             Log.d("MyTracker","=DoneActivity: Error adding new record");
             Toast.makeText(getApplicationContext(),"Error adding new record",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    //This method retrieve the best record
+    private void getBest(){
+        Log.d("MyTracker","=DoneActivity Retrieving the best record");
+        DBHelperActivity dbHelperActivity = new DBHelperActivity(this,null,null,1);
+
+        bStep = dbHelperActivity.findActivityBest("step");
+        bCalory = dbHelperActivity.findActivityBest("calories");
+        bDistance = dbHelperActivity.findActivityBest("distance");
     }
 
     //Activity Lifecycle onCreate()

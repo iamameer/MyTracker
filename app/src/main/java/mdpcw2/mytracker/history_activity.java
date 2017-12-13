@@ -79,7 +79,7 @@ public class history_activity extends AppCompatActivity {
         if (activitiesArrayList!=null){
             List<String> list = new ArrayList<String>();
             for (int i = 0; i <activitiesArrayList.size(); i++){
-                list.add((i+1)+". "+activitiesArrayList.get(i).getDate()+" | Distance: "+activitiesArrayList.get(i).getDistance());
+                list.add((i+1)+". "+activitiesArrayList.get(i).getDate()+" | Distance: "+activitiesArrayList.get(i).getDistance()+" m");
             }
             ArrayAdapter<String> adapter =
                     new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list);

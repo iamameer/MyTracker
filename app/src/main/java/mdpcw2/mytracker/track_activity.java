@@ -152,11 +152,11 @@ public class track_activity extends AppCompatActivity {
     //Method to update the stats
     private void update(){
         Log.d("MyTracker","***Lo: "+longitude+"// La: "+latitude);
-        distance = distance + " m";
-        calory = calory + " kCal";
-        txtTrackDistance.setText(distance);
+        String sDistance = distance + " m";
+        String sCalory = calory + " kCal";
+        txtTrackDistance.setText(sDistance);
         txtTrackSteps.setText(steps);
-        txtTrackCalory.setText(calory);
+        txtTrackCalory.setText(sCalory);
     }
 
     //Method to handle the timer

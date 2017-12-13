@@ -52,7 +52,7 @@ public class DBHelperActivity extends SQLiteOpenHelper{
         onCreate(sqLiteDatabase);
     }
 
-    //this method add a new recipe into the database, respective column
+    //this method add a new Activity into the database, respective column
     public void addActivity(Activities activities){
         ContentValues values = new ContentValues();
         values.put(ActivityContract.ActivityEntry.COLUMN_NAME_DATE, activities.getDate());
@@ -64,7 +64,7 @@ public class DBHelperActivity extends SQLiteOpenHelper{
         myCR.insert(MyContentProvider.CONTENT_URI,values);
     }
 
-    //this method return a Recipe as object
+    //this method return a Activity as object
     public Activities findActivity(int _id){
         String[] projection = {
                 ActivityContract.ActivityEntry.COLUMN_NAME_ID,
@@ -104,6 +104,40 @@ public class DBHelperActivity extends SQLiteOpenHelper{
         return activities;
     }
 
+    //this method return a best Activity as object
+    //https://stackoverflow.com/questions/1547125/sql-how-to-find-the-highest-number-in-a-column
+    //https://stackoverflow.com/questions/9280692/android-sqlite-select-query
+    public String findActivityBest(String column){
+        String result = "null"; //
+        String query = "SELECT * FROM "+ ActivityContract.ActivityEntry.TABLE_NAME+" ORDER BY "+column +" DESC";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query,null);
+        cursor.moveToFirst();
+        try{
+            switch (column){
+                case "step":
+                    Log.d("MyTracker",String.valueOf(cursor.getInt(2)));
+                    result = String.valueOf(cursor.getInt(2));
+                    break;
+                case "distance":
+                    Log.d("MyTracker",String.valueOf(cursor.getInt(3)));
+                    result = String.valueOf(cursor.getInt(3));
+                    break;
+                case "calories":
+                    Log.d("MyTracker",String.valueOf(cursor.getInt(5)));
+                    result = String.valueOf(cursor.getInt(5));
+                    break;
+                default:
+                    break;
+            }
+        }catch (Exception e){
+            Log.d("MyTracker",e.toString());
+        }
+        db.close();
+        cursor.close();
+        return result;
+    }
+
     //this method deletes the specified recipe
     public boolean deleteActivity(int _id){
         boolean result = false;
@@ -115,8 +149,10 @@ public class DBHelperActivity extends SQLiteOpenHelper{
         return result;
     }
 
-    //this method update the current recipe
-    public boolean updateActivity(int _id,String date, int step, int distance, int duration, int calories, String gpx){
+    //this method
+
+    //this method update the current Activity
+    public boolean updateActivity(int _id,String date, int step, int distance, int duration, int calories){
         boolean result = false;
         String selection = "_id = \""+_id+" \"";
         ContentValues values = new ContentValues();
@@ -132,7 +168,7 @@ public class DBHelperActivity extends SQLiteOpenHelper{
         return result;
     }
 
-    //this method returns array of Recipe(object) to be displayed
+    //this method returns array of Activities(object) to be displayed
     public ArrayList<Activities> display(){
         String[] projection = {
                 ActivityContract.ActivityEntry.COLUMN_NAME_ID,
