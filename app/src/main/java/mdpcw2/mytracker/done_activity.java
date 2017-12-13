@@ -1,3 +1,12 @@
+/*
+ * done_activity    : Activity that display statistic after done tracking
+ *
+ * Methods          :  init()         : initialize variable
+ *                     setEvents()    : setting up listeners
+ *                     add()          : add a record to database
+ *                     getBest()      : retrieve best record from database
+ */
+
 package mdpcw2.mytracker;
 
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +34,7 @@ public class done_activity extends AppCompatActivity {
     private String sSteps,sCalory,sTimer,sDistance;
     private String bStep, bCalory,bDistance;
 
-    //Init
+    //Initialising variables
     private void init(){
         txtDoneSteps = findViewById(R.id.txtDoneSteps);
         txtDoneCalory = findViewById(R.id.txtDoneCalory);

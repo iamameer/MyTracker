@@ -1,3 +1,10 @@
+/*
+ * MainActivity : MainActivity with 2 buttons: Start(tracking_activity) and History(history_activity)
+ *
+ * Methods          :  init()         : initialize variable
+ *                     setEvents()    : setting up listeners
+ */
+
 package mdpcw2.mytracker;
 
 import android.content.Intent;
@@ -12,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     //Global Variables
     private ImageView imgMainStart, imgMainHistory;
 
-    //Init
+    //Initialising variables
     private void init(){
         imgMainStart = findViewById(R.id.imgMainStart);
         imgMainHistory = findViewById(R.id.imgMainHistory);

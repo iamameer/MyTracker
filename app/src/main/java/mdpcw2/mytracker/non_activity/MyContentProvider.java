@@ -1,7 +1,10 @@
 /*
  * MyContentProvider: ContentProvider class to interact with database
  *
- * Methods:         :  insert(), query()
+ * Methods          :  insert() : insert a record to database
+ *                     query()  : perform a query
+ *                     delete() : delete a record from database
+ *                     update() : (not implemented) updates database
  */
 
 package mdpcw2.mytracker.non_activity;
@@ -35,6 +38,7 @@ public class MyContentProvider extends ContentProvider {
                 ACTIVITY_ID);
     }
 
+    //empty constructor
     public MyContentProvider() {
     }
 

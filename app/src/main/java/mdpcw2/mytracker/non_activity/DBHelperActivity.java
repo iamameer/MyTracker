@@ -1,12 +1,15 @@
 /*
  * DBHelper.java  : Handle the DB with queries operation
  *
- * Methods        : addActivity(), findActivity(), deleteActivity(), updateActivity(), display()
- *
+ * Methods        : addActivity()      : add a new activity (as object) into database
+ *                  findActivity()     : retrieve a record
+ *                  findActivityBest() : get the best record
+ *                  deleteActivity()   : delete specified record
+ *                  updateActivity()   : update specified record
+ *                  display()          : display all records
  */
 
 package mdpcw2.mytracker.non_activity;
-
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -26,6 +29,7 @@ public class DBHelperActivity extends SQLiteOpenHelper{
     //The database version.
     public static final int DATABASE_VERSION = 1;
 
+    //public constructor
     public DBHelperActivity(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, ActivityContract.ActivityEntry.DATABASE_NAME,null,DATABASE_VERSION);
         myCR = context.getContentResolver();
@@ -99,20 +103,20 @@ public class DBHelperActivity extends SQLiteOpenHelper{
                 activities = null;
             }
         }catch (Exception e){
-            Log.d("MyRecipe",e.toString());
+            Log.d("MyTracker",e.toString());
         }
         return activities;
     }
 
     //this method return a best Activity as object
-    //https://stackoverflow.com/questions/1547125/sql-how-to-find-the-highest-number-in-a-column
-    //https://stackoverflow.com/questions/9280692/android-sqlite-select-query
+    //by passing the desired parameter
     public String findActivityBest(String column){
-        String result = "null"; //
+        String result = "null";
         String query = "SELECT * FROM "+ ActivityContract.ActivityEntry.TABLE_NAME+" ORDER BY "+column +" DESC";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query,null);
         cursor.moveToFirst();
+
         try{
             switch (column){
                 case "step":
@@ -138,7 +142,7 @@ public class DBHelperActivity extends SQLiteOpenHelper{
         return result;
     }
 
-    //this method deletes the specified recipe
+    //this method deletes the specified record
     public boolean deleteActivity(int _id){
         boolean result = false;
         String selection = "_id = \"" +_id+ "\"";
@@ -149,9 +153,8 @@ public class DBHelperActivity extends SQLiteOpenHelper{
         return result;
     }
 
-    //this method
-
     //this method update the current Activity
+    //currently not used, just put in case for future usage/reference
     public boolean updateActivity(int _id,String date, int step, int distance, int duration, int calories){
         boolean result = false;
         String selection = "_id = \""+_id+" \"";
@@ -184,10 +187,10 @@ public class DBHelperActivity extends SQLiteOpenHelper{
         ArrayList<Activities> result = new ArrayList<Activities>();
         try{
             if(cursor.moveToFirst()){
-                Log.d("MyRecipe","cursor : inside IF");
+                Log.d("MyTracker","cursor : inside IF");
                 do{
                     Activities activities = new Activities();
-                    Log.d("MyRecipe","cursor: inside DO");
+                    Log.d("MyTracker","cursor: inside DO");
                     activities.set_id(Integer.parseInt(cursor.getString(0)));
                     activities.setDate(cursor.getString(1));
                     activities.setStep(cursor.getString(2));
@@ -198,7 +201,7 @@ public class DBHelperActivity extends SQLiteOpenHelper{
                 }while(cursor.moveToNext());
             }cursor.close();
         }catch (Exception e){
-            Log.d("MyRecipe",e.toString());
+            Log.d("MyTracker",e.toString());
         }
         return result;
     }

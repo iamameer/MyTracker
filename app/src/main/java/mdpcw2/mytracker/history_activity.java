@@ -1,3 +1,12 @@
+/*
+ * history_activity : Activity that display full records of database
+ *
+ * Methods          :  init()         : initialize variable
+ *                     setEvents()    : setting up listeners
+ *                     viewActivity() : select a specified activity and launch detail_activity
+ *                     display()      : display all records from database
+ */
+
 package mdpcw2.mytracker;
 
 import android.content.Intent;
@@ -25,7 +34,7 @@ public class history_activity extends AppCompatActivity {
 
     ArrayList<Activities> activitiesArrayList;
 
-    //Init
+    //Initialising variables
     private void init(){
         btnHistoryBack = findViewById(R.id.btnHistoryBack);
         listView = findViewById(R.id.listView);
@@ -48,7 +57,7 @@ public class history_activity extends AppCompatActivity {
 
     //Method to view Activity detail
     private void viewActivity(int position){
-        Log.d("MyTracker","=HistoryActivity: Launching detail_activity--> View Recipe : "+listView.getItemAtPosition(position));
+        Log.d("MyTracker","=HistoryActivity: Launching detail_activity--> View Record : "+listView.getItemAtPosition(position));
         Log.d("MyTracker","Item position: "+String.valueOf(position));
         //implementing search()
         DBHelperActivity dbHelperActivity = new DBHelperActivity(this,null,null,1);

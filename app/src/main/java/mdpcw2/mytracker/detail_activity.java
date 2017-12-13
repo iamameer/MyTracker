@@ -1,3 +1,11 @@
+/*
+ * detail_activity  : Activity display selected record from history_activity
+ *
+ * Methods          :  init()         : initialize variable
+ *                     setEvents()    : setting up listeners
+ *                     delete()       : deleting a record from database
+ */
+
 package mdpcw2.mytracker;
 
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +27,7 @@ public class detail_activity extends AppCompatActivity {
     private TextView txtDetailStep, txtDetailDate, txtDetailTimer, txtDetailDistance, txtDetailCalory;
     private Button btnDetailBack, btnDetailDelete;
 
-    //Init
+    //Initialising variables and states
     private void init(){
         id = getIntent().getExtras().getInt("id");
         Log.d("MyTracker","ID: "+String.valueOf(id));
@@ -77,7 +85,7 @@ public class detail_activity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Record successfully deleted",Toast.LENGTH_SHORT).show();
         }else {
             Log.d("MyTracker","=DetailActivity: Error deleted record");
-            Toast.makeText(getApplicationContext(),"Error deleting recipe",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Error deleting record",Toast.LENGTH_SHORT).show();
         }
         finish();
     }

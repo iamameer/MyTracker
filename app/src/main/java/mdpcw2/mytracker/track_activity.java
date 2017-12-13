@@ -1,3 +1,16 @@
+/*
+ * track_activity : Activity that starts TrackerService and handle the UI for broadcast receiver
+ *
+ * Methods          :  init()             : initialize variable
+ *                     setEvents()        : setting up listeners
+ *                     check_permission() : checking device permission
+ *                     startMyService()   : start TrackerService
+ *                     stopMyService()    : stop TrackerService
+ *                     update()           : handle UI via broadcast receiver
+ *                     startTimer()       : starts chronometer
+ *                     getTime()          : returns time from the chronometer
+ */
+
 package mdpcw2.mytracker;
 
 import android.Manifest;
@@ -45,7 +58,7 @@ public class track_activity extends AppCompatActivity {
 
     private BroadcastReceiver trackerReceiver;
 
-    //Init
+    //Initialising variables
     private void init(){
         btnTrackStartStop = findViewById(R.id.btnTrackStartStop);
         btnTrackStartStop.setText(R.string.start);
@@ -138,7 +151,6 @@ public class track_activity extends AppCompatActivity {
 
     //Method to start service
     private void startMyService(){
-        //TODO: check if thread in here, or in service
         Intent intent = new Intent(getApplicationContext(), TrackerService.class);
         startService(intent);
     }
@@ -151,7 +163,7 @@ public class track_activity extends AppCompatActivity {
 
     //Method to update the stats
     private void update(){
-        Log.d("MyTracker","***Lo: "+longitude+"// La: "+latitude);
+        Log.d("MyTracker","***Longitude: "+longitude+"|| ***Latitude: "+latitude);
         String sDistance = distance + " m";
         String sCalory = calory + " kCal";
         txtTrackDistance.setText(sDistance);
@@ -209,7 +221,6 @@ public class track_activity extends AppCompatActivity {
                     steps = intent.getExtras().get("steps").toString();
                     calory = intent.getExtras().get("calory").toString();
                     update();
-                    Toast.makeText(context,intent.getExtras().get("coordinates").toString(),Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
                     Log.d("MyTracker","***Fail to parse INT from STRING");
                     Toast.makeText(getApplicationContext(),"Fail to parse INT from STRING",Toast.LENGTH_SHORT).show();

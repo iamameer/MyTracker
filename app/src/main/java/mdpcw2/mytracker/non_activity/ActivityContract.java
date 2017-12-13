@@ -2,7 +2,6 @@
  * Activity.java : Basic abstract class to create Activity as an object
  * Methods       : none
  * Sub-class     : ActivityEntry - Main database of history table
- *                 BestEntry     - Database to hold best statistic
  */
 
 package mdpcw2.mytracker.non_activity;
@@ -27,14 +26,4 @@ public final class ActivityContract {
         public static final String COLUMN_NAME_CALORIES = "calories";
     }
 
-    /* Inner class that defines the BEST-record table contents */
-    public static class BestEntry implements BaseColumns{
-        public static final String DATABASE_NAME = "bestrecord.db";
-        public static final String TABLE_NAME = "best";
-        public static final String COLUMN_NAME_ID = "_id";
-        public static final String COLUMN_NAME_STEP = "step";
-        public static final String COLUMN_NAME_DISTANCE = "distance";
-        public static final String COLUMN_NAME_DURATION = "duration";
-        public static final String COLUMN_NAME_CALORIES = "calories";
-    }
 }

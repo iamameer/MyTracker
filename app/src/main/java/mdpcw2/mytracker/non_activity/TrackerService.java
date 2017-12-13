@@ -1,3 +1,14 @@
+/*
+ * TrackerService   : Service class to handle background tasks
+ *
+ * Methods          :  init()         : initialize variable
+ *                     startNoti()    : starts a notification
+ *                     startTracker() : starts GPS listener
+ *                     distance()     : return distance from Latitude and Longitude
+ *                     steps()        : calculate steps from distance
+ *                     calory()       : calculate calory from distance
+ */
+
 package mdpcw2.mytracker.non_activity;
 
 import android.annotation.SuppressLint;
@@ -28,13 +39,17 @@ public class TrackerService extends Service {
     private float distance;
     private double steps, calory;
 
+    //empty constructor
     public TrackerService() {
     }
 
+    //initializes variable
     private void init(){isChanged = false;}
 
+    //method to start a notification
     private void startNoti(){}
 
+    //method to start a GPS Listener
     //https://www.youtube.com/watch?v=lvcGh2ZgHeA
     @SuppressLint("MissingPermission")
     private void startTracker(){
@@ -44,6 +59,7 @@ public class TrackerService extends Service {
             public void onLocationChanged(Location location) {
                 Log.d("MyTracker","@@MyTrackerService onLocationChanged");
 
+                //initialize if first time location change or next concurrent
                 if(isChanged){
                     initLong = newLong;
                     initLat = newLat;
@@ -67,7 +83,6 @@ public class TrackerService extends Service {
                 intent.putExtra("distance",Math.round(distance));
                 intent.putExtra("steps",Math.round(steps));
                 intent.putExtra("calory",Math.round(calory));
-                //TODO: walk or run
                 sendBroadcast(intent);
                 isChanged = true;
             }
@@ -147,6 +162,7 @@ public class TrackerService extends Service {
      }
      */
 
+    //method that execute once service running
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("MyTracker","@@MyTrackerService onStartCommand");
@@ -154,8 +170,7 @@ public class TrackerService extends Service {
         Log.d("MyTracker","@@MyTrackerService onStartCommand: Notification started");
         startTracker();
         Log.d("MyTracker","@@MyTrackerService onStartCommand: Tracker started");
-        return super.onStartCommand(intent, flags, startId); //try comment out? +return
-        //return START_STICKY;
+        return super.onStartCommand(intent, flags, startId);
     }
 
     //onDestroy lifecycle
