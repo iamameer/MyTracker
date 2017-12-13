@@ -12,9 +12,13 @@
 package mdpcw2.mytracker.non_activity;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -24,11 +28,13 @@ import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import mdpcw2.mytracker.R;
+import mdpcw2.mytracker.track_activity;
+
 public class TrackerService extends Service {
 
     //Global variables
     private static final int ID = 100; //Permission Request ID
-    NotificationCompat.Builder notification; //Create a notification object
 
     private LocationListener listener;
     private LocationManager locationManager;
@@ -45,9 +51,6 @@ public class TrackerService extends Service {
 
     //initializes variable
     private void init(){isChanged = false;}
-
-    //method to start a notification
-    private void startNoti(){}
 
     //method to start a GPS Listener
     //https://www.youtube.com/watch?v=lvcGh2ZgHeA
@@ -152,6 +155,7 @@ public class TrackerService extends Service {
     public void onCreate() {
         super.onCreate();
         init();
+        listener = null;
         Log.d("MyTracker","@@MyTrackerService created");
     }
 
@@ -166,8 +170,6 @@ public class TrackerService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("MyTracker","@@MyTrackerService onStartCommand");
-        startNoti();
-        Log.d("MyTracker","@@MyTrackerService onStartCommand: Notification started");
         startTracker();
         Log.d("MyTracker","@@MyTrackerService onStartCommand: Tracker started");
         return super.onStartCommand(intent, flags, startId);
@@ -177,6 +179,7 @@ public class TrackerService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        listener = null;
         Log.d("MyTracker","@@MyTrackerService destroyed");
     }
 }

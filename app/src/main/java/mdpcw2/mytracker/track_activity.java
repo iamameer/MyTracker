@@ -9,19 +9,30 @@
  *                     update()           : handle UI via broadcast receiver
  *                     startTimer()       : starts chronometer
  *                     getTime()          : returns time from the chronometer
+ *                     startNoti()        : launch a notification
+ *
+ *                     onRequestPermission() : Handles device permission
+ *                     onUserLeaveHint()     : Handles notification
  */
 
 package mdpcw2.mytracker;
 
 import android.Manifest;
+import android.app.ActivityManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +46,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -42,11 +54,14 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Timer;
 
+import mdpcw2.mytracker.non_activity.ActivityContract;
 import mdpcw2.mytracker.non_activity.TrackerService;
 
 public class track_activity extends AppCompatActivity {
 
     //Global Variables
+    private static final String CHANNEL_ID = "TrackNotification"; //notification channel ID
+    private static final int NOTI_ID = 88; //notification ID
     private static final int PERM_ID = 99;
     private Button btnTrackStartStop;
     private ProgressBar progressBar;
@@ -56,7 +71,8 @@ public class track_activity extends AppCompatActivity {
     private String longitude,latitude;
     private String distance,steps,calory;
 
-    private BroadcastReceiver trackerReceiver;
+    private BroadcastReceiver trackerReceiver; //handles intent broadcast
+    NotificationCompat.Builder notification; //Create a notification object
 
     //Initialising variables
     private void init(){
@@ -201,6 +217,45 @@ public class track_activity extends AppCompatActivity {
         return hourS+"h:"+minS+"m:"+secS+"s";
     }
 
+    //method to start a notification
+    private void startNoti(){
+        notification = new NotificationCompat.Builder(this,CHANNEL_ID);
+        notification.setAutoCancel(true);
+
+        //setting up notification
+        notification.setColor(Color.rgb(144, 99, 160));
+        notification.setSmallIcon(R.drawable.runner);
+        notification.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.runner));
+        notification.setTicker("MyTracker: "+String.valueOf(distance)+" m");
+        notification.setContentTitle("MyTracker: "+String.valueOf(distance)+" m");
+        notification.setContentText("Steps: "+String.valueOf(steps)+" | Calories: "+String.valueOf(calory));
+        notification.setStyle(new NotificationCompat.BigTextStyle());
+
+        //return to track_activity if clicked
+        Intent intent = new Intent(getApplicationContext(),track_activity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                getApplicationContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        notification.setContentIntent(pendingIntent);
+
+        //launch the notification
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(NOTI_ID,notification.build());
+        Log.d("MyTracker","Notification via TrackerService");
+    }
+
+    //this method return an activity state
+    //https://stackoverflow.com/questions/22511018/check-if-service-is-running-from-a-broadcast-receiver
+    private boolean isServiceRunning(Context context){
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices(Integer.MAX_VALUE)){
+            if (TrackerService.class.getName().equals(serviceInfo.service.getClassName())){
+                return  true;
+            }
+        }
+        return false;
+    }
+
     //Activity Lifecycle onCreate()
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -247,8 +302,12 @@ public class track_activity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        Log.d("MyTracker","=TrackActivity onResume()");
+        Log.d("MyTracker","=TrackActivity onResume() | isServiceRunning: "+isServiceRunning(getApplicationContext()));
         registerReceiver(trackerReceiver,new IntentFilter("location_update"));
+        if (isServiceRunning(getApplicationContext())){
+            progressBar.setVisibility(View.VISIBLE);
+            btnTrackStartStop.setText(R.string.stop);
+        }
     }
 
     //Activity Lifecycle onPause()
@@ -286,5 +345,22 @@ public class track_activity extends AppCompatActivity {
                 check_permission();
             }
         }
+    }
+
+    //starts noti when a user pressed Home key
+    //also this method handle onBackPressed()
+    @Override
+    public void onUserLeaveHint(){
+
+        //only starts noti if service running in background
+        if (isServiceRunning(getApplicationContext())){
+            try{
+                startNoti();
+                Log.d("MyTracker","@@onUserLeaveHint: Notification started");
+            }catch (Exception e){
+                Log.e("MyTracker",e.toString());
+            }
+        }
+        Log.d("MyTracker","MainActivity onUserLeaveHint");
     }
 }
