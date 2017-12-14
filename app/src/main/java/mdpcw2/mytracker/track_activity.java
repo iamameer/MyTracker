@@ -235,7 +235,7 @@ public class track_activity extends AppCompatActivity {
         Log.d("MyTracker","Notification via TrackerService");
     }
 
-    //this method return an activity state
+    //this method return a service state
     //https://stackoverflow.com/questions/22511018/check-if-service-is-running-from-a-broadcast-receiver
     private boolean isServiceRunning(Context context){
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
