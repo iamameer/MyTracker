@@ -72,7 +72,7 @@ public class track_activity extends AppCompatActivity {
     private String longitude,latitude;
     private String distance,steps,calory;
 
-    private BroadcastReceiver trackerReceiver; //handles intent broadcast
+    private BroadcastReceiver trackerReceiver,serviceReceiver; //handles intent broadcast
     NotificationCompat.Builder notification; //Create a notification object
 
     //Initialising variables
@@ -277,13 +277,18 @@ public class track_activity extends AppCompatActivity {
                     steps = intent.getExtras().get("steps").toString();
                     calory = intent.getExtras().get("calory").toString();
                     update();
+                    /*if (notification != null){
+                        notification.setContentTitle("MyTracker: "+String.valueOf(distance)+" m");
+                        notification.setContentText("Steps: "+String.valueOf(steps)+" | Calories: "+String.valueOf(calory));
+                        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                        notificationManager.notify(NOTI_ID,notification.build());
+                    }*/
                 }catch (Exception e){
                     Log.d("MyTracker","***Fail to parse INT from STRING");
                     Toast.makeText(getApplicationContext(),"Fail to parse INT from STRING",Toast.LENGTH_SHORT).show();
                 }
             }
         };
-        stopMyService();
     }
 
     //Activity Lifecycle onStart()
@@ -353,7 +358,6 @@ public class track_activity extends AppCompatActivity {
     //also this method handle onBackPressed()
     @Override
     public void onUserLeaveHint(){
-
         //only starts noti if service running in background
         if (isServiceRunning(getApplicationContext())){
             try{
