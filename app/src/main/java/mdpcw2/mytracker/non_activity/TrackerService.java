@@ -12,25 +12,16 @@
 package mdpcw2.mytracker.non_activity;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-
-import mdpcw2.mytracker.R;
-import mdpcw2.mytracker.track_activity;
 
 public class TrackerService extends Service {
 

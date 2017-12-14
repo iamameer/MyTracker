@@ -22,15 +22,12 @@ import android.app.ActivityManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
@@ -44,18 +41,10 @@ import android.widget.Chronometer;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
-import java.io.ByteArrayOutputStream;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
-import java.util.Timer;
 
-import mdpcw2.mytracker.non_activity.ActivityContract;
 import mdpcw2.mytracker.non_activity.TrackerService;
 
 public class track_activity extends AppCompatActivity {
@@ -72,7 +61,7 @@ public class track_activity extends AppCompatActivity {
     private String longitude,latitude;
     private String distance,steps,calory;
 
-    private BroadcastReceiver trackerReceiver,serviceReceiver; //handles intent broadcast
+    private BroadcastReceiver trackerReceiver; //handles intent broadcast
     NotificationCompat.Builder notification; //Create a notification object
 
     //Initialising variables
