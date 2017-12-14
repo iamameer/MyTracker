@@ -1,5 +1,5 @@
 /*
- * Activity.java : Basic abstract class to create Activity as an object
+ * Activities.java : Basic abstract class to create Activity as an object
  *
  * Methods       : setter() and getter()
  */

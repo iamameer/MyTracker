@@ -1,7 +1,7 @@
 /*
- * Activity.java : Basic abstract class to create Activity as an object
- * Methods       : none
- * Sub-class     : ActivityEntry - Main database of history table
+ * ActivityContract.java : Basic abstract class serving as Contract Class
+ * Methods               : none
+ * Sub-class             : ActivityEntry - Main database of history table
  */
 
 package mdpcw2.mytracker.non_activity;
