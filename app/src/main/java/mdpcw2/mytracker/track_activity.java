@@ -277,12 +277,13 @@ public class track_activity extends AppCompatActivity {
                     steps = intent.getExtras().get("steps").toString();
                     calory = intent.getExtras().get("calory").toString();
                     update();
-                    /*if (notification != null){
+                    //updates the notification
+                    if (notification != null){
                         notification.setContentTitle("MyTracker: "+String.valueOf(distance)+" m");
                         notification.setContentText("Steps: "+String.valueOf(steps)+" | Calories: "+String.valueOf(calory));
                         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                         notificationManager.notify(NOTI_ID,notification.build());
-                    }*/
+                    }
                 }catch (Exception e){
                     Log.d("MyTracker","***Fail to parse INT from STRING");
                     Toast.makeText(getApplicationContext(),"Fail to parse INT from STRING",Toast.LENGTH_SHORT).show();
@@ -315,6 +316,9 @@ public class track_activity extends AppCompatActivity {
             btnTrackStartStop.setText(R.string.stop);
             registerReceiver(trackerReceiver,new IntentFilter("location_update"));
         }
+        //stopping notification
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        nm.cancelAll();
     }
 
     //Activity Lifecycle onPause()
